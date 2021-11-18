@@ -44,6 +44,50 @@ export default function Footer(props) {
                     <p>Tin cậy và an toàn</p>
                 </div>
             </div>
+            <div className="row footer2">
+                <div className='row mx-0 col-6'>
+                    <div className='text-dark'>
+                        <span>©2021 AirBnB,Inc. All rights reserved</span>
+                    </div>
+                    <div>
+                        <li className='px-1'>
+                            <a className='text-dark' href="#">Quyền riêng tư </a>
+                        </li>
+                    </div>
+                    <div>
+                        <li className='px-1' >
+                            <a className='text-dark' href="#">Điều khoản</a>
+                        </li>
+                    </div>
+                    <div>
+                        <li className='px-1'>
+                            <a className='text-dark' href="#">Sơ đồ trang web</a>
+                        </li>
+                    </div>
+                </div>
+                <div className="col-2"></div>
+                <div className="col-2">
+                    <i className="fa fa-globe"></i>
+                    <span>
+                        <a className='text-dark' href="#">Tiếng Việt</a>
+                    </span>
+                    <span className='px-2'>
+                        <a className='text-dark' href="#">$ USD</a>
+                    </span>
+                </div>
+                <div className="col-2 ">
+                    <i className="fab fa-facebook-f"></i>
+                    <i className="fab fa-twitter px-4"></i>
+                    <i className="fab fa-instagram"></i>
+                </div>
+
+
+
+
+
+
+
+            </div>
         </div>
     )
 }

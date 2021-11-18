@@ -56,4 +56,14 @@ header .login{
 }
 .footer{
   padding: 0 80px;
+
+}
+
+.footer2{
+  border-top-style: solid;
+  border-top-width: 1px;
+}
+.content_bnb{
+  padding: 0 80px;
+
 }

@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import CarouselHome from "../../components/CarouselHome/CarouselHome";
 import Footer from "../../components/Footer/Footer";
+import Content from "../../components/Content/Content";
 export default function HomeTemplate(props) {//path,component,exact
     //Destructuring
     // const {Component,...restProps} = props;
@@ -13,7 +14,7 @@ export default function HomeTemplate(props) {//path,component,exact
                 <Header />
                 <CarouselHome {...propsRoute}/>
                 {/* <props.component{...propsRoute} /> */}
-
+                <Content/>
                 <Footer/>
             </Fragment>
         }} />
