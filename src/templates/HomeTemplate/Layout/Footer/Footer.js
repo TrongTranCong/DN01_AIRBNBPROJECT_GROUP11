@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer(props) {
     return (
-        <div className="footer">
+        <div className="footer pt-3">
             <div className='row'>
                 <div className="col-3">
                     <h5 className='font-weight-bold'>GIỚI THIỆU</h5>
@@ -44,7 +44,7 @@ export default function Footer(props) {
                     <p>Tin cậy và an toàn</p>
                 </div>
             </div>
-            <div className="row footer2">
+            <div className="row footer2 py-3">
                 <div className='row mx-0 col-6'>
                     <div className='text-dark'>
                         <span>©2021 AirBnB,Inc. All rights reserved</span>
@@ -80,13 +80,6 @@ export default function Footer(props) {
                     <i className="fab fa-twitter px-4"></i>
                     <i className="fab fa-instagram"></i>
                 </div>
-
-
-
-
-
-
-
             </div>
         </div>
     )

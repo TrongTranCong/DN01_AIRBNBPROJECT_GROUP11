@@ -10,7 +10,7 @@ function App() {
 
     <BrowserRouter>
       <Switch>
-        <HomeTemplate exact path="/" component={Home} />
+        <HomeTemplate exact path="/" component={Home}/>
         <HomeTemplate exact path='/danhsachphong' component={DanhSachPhong}/>
       </Switch>
 

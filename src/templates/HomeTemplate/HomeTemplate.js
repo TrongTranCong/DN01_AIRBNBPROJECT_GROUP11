@@ -1,23 +1,20 @@
 import React, { Component, Fragment } from "react";
 import { Route } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import CarouselHome from "../../components/CarouselHome/CarouselHome";
-import Footer from "../../components/Footer/Footer";
-import Content from "../../components/Content/Content";
+import Header from "./Layout/Header/Header";
+import Footer from "./Layout/Footer/Footer";
+import DanhSachPhong from "../../pages/DanhSachPhong/DanhSachPhong";
 export default function HomeTemplate(props) {//path,component,exact
     //Destructuring
     // const {Component,...restProps} = props;
     //return <Route {...restProps} : exact path={props.path}
-    return <Fragment>
+    return <>
         <Route exact path={props.path} render={(propsRoute) => {//props.history,props.location,props.match
-            return <Fragment>
-                <Header />
-                <CarouselHome {...propsRoute}/>
-                {/* <props.component{...propsRoute} /> */}
-                <Content/>
-                <Footer/>
-            </Fragment>
+            return <>
+                <props.component />
+                <Footer />
+            </>
         }} />
-    </Fragment>
+    </>
 
 }
+
