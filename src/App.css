@@ -98,4 +98,10 @@ header .login{
   background: #fff;
   border-radius: 50px;
 }
-
+.react-autosuggest__suggestion {
+  cursor: pointer;
+  padding: 10px 20px;
+}
+.react-autosuggest__suggestion--highlighted:hover {
+  background-color: #ddd;
+}

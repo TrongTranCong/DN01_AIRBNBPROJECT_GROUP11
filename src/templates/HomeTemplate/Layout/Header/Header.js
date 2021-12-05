@@ -4,11 +4,13 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getLocationAction } from "../../../../redux/actions/QuanLyViTriActions";
-
+import { GET_LOCATIONS } from "../../../../redux/actions/types/QuanLyViTriTypes";
+import { AutoComplete } from "antd";
 export default function Header(props) {
   // const [locations, setLocations] = useState([]);
   const { arrLocations } = useSelector((state) => state.QuanLyViTriReducer);
   // console.log(`arrLocations`, arrLocations);
+
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
@@ -17,26 +19,30 @@ export default function Header(props) {
     // const action = getLocationAction;
     dispatch(getLocationAction);
   }, []);
-  const handleChange = (value) => {
-    let matches = [];
-    if (value.length > 0) {
-      matches = arrLocations.filter((loc) => {
-        const regexString = new RegExp(`${value}`, "gi");
-        return loc.name.match(regexString);
+
+  const handleChange = (e) => {
+    let inputVal = e.target.value;
+    let suggest = [];
+    if (inputVal.length > 0) {
+      suggest = arrLocations.filter((loc) => {
+        const regexString = new RegExp(`${inputVal}`, "gi");
+        return loc.province.toLowerCase().match(regexString);
       });
     }
-    console.log(`matches`, matches);
-    setSuggestions(matches);
-    setValue(value);
+    setSuggestions(suggest);
+    setValue(inputVal);
   };
-
+  const handleSuggest = (value) => {
+    setValue(value);
+    setSuggestions([]);
+  };
   //Sticky menu
-  useEffect(() => {
-    window.addEventListener("scroll", isSticky);
-    return () => {
-      window.removeEventListener("scroll", isSticky);
-    };
-  });
+  // useEffect(() => {
+  //   window.addEventListener("scroll", isSticky);
+  //   return () => {
+  //     window.removeEventListener("scroll", isSticky);
+  //   };
+  // });
   //Method that will fix header after a specific scrollable
   const isSticky = (e) => {
     const nav = document.querySelector("nav");
@@ -153,7 +159,9 @@ export default function Header(props) {
               <label className="mt-2" style={{ marginLeft: "15px" }}>
                 Địa điểm
               </label>
+
               <input
+                autoComplete="off"
                 type="text"
                 className="form-control border-0 p-0"
                 style={{
@@ -164,9 +172,7 @@ export default function Header(props) {
                 }}
                 id="exampleInputEmail1"
                 placeholder="Bạn sắp đi đâu?"
-                onChange={(e) => {
-                  handleChange(e.target.value);
-                }}
+                onChange={handleChange}
                 value={value}
               />
               <div
@@ -180,17 +186,22 @@ export default function Header(props) {
                     return (
                       <>
                         <li
-                          className="list-group-item font-weight-lighter border-0"
+                          className="list-group-item font-weight-lighter border-0 react-autosuggest__suggestion"
                           style={{
-                            width: "350px",
+                            width: "400px",
                             fontSize: "18px",
                           }}
                           key={index}
+                          onClick={() => {
+                            handleSuggest(item.province);
+                          }}
                         >
-                          <span className="px-1">
+                          <span className="px-1  ">
                             <i className="fa fa-map-marker-alt"></i>
                           </span>
-                          {item.name},{item.province},{item.country}
+                          <span className="react-autosuggest__suggestion--highlighted">
+                            {item.province},{item.country}
+                          </span>
                         </li>
                       </>
                     );
@@ -243,6 +254,7 @@ export default function Header(props) {
                       borderRadius: "50px",
                       borderWidth: "0",
                     }}
+                    // {`/danhsachphong/${item.locationId}`}
                   >
                     <NavLink to="/danhsachphong">
                       <i className="fa fa-search" style={{ color: "#fff" }}></i>

@@ -2,14 +2,16 @@ import React, { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 import { getRoomsAction } from "../../redux/actions/DanhSachPhongActions";
 //thư viện antdesign
 import { HeartOutlined } from "@ant-design/icons";
 export default function DanhSachPhong(props) {
+  console.log(`props`, props)
   const { arrDanhSachPhong } = useSelector(
     (state) => state.DanhSachPhongReducer
   );
-  // console.log(`arrDanhSachPhong`, arrDanhSachPhong);
+  console.log(`arrDanhSachPhong`, arrDanhSachPhong);
   const dispatch = useDispatch();
 
   useEffect(async () => {
@@ -25,13 +27,15 @@ export default function DanhSachPhong(props) {
               className="img-fluid"
               style={{ borderRadius: "15px" }}
               src={item.image}
-              alt="No image available"
+              alt={item.name}
             />
           </div>
           <div className="col-md-6 border-bottom">
             <div className="card-body" style={{ padding: "0.25rem 1rem" }}>
               <HeartOutlined style={{ cursor: "pointer" }} />
-              <h5 className="card-title">{item.name}</h5>
+              <h5 className="card-title">
+                <NavLink to={`/chitietphong/${item.id}`}></NavLink>
+              </h5>
               <p className="card-text">
                 Khách: {item.guests} , Phòng ngủ: {item.bedRoom}
               </p>
@@ -141,7 +145,7 @@ export default function DanhSachPhong(props) {
         <div className="col-7">
           <h3 className="mx-3">Chỗ ở khu vực bạn đã chọn</h3>
           <div className="container">
-            <div className="card mb-3">
+            <div className="card mb-3 border-0">
               <div className="row no-gutters">{renderDanhSachPhong()}</div>
             </div>
           </div>
