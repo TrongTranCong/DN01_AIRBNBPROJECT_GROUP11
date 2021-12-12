@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getLocationAction } from "../../../../redux/actions/QuanLyViTriActions";
 import { GET_LOCATIONS } from "../../../../redux/actions/types/QuanLyViTriTypes";
 import { AutoComplete } from "antd";
 export default function Header(props) {
-  // const [locations, setLocations] = useState([]);
+  const history = useHistory();
   const { arrLocations } = useSelector((state) => state.QuanLyViTriReducer);
   // console.log(`arrLocations`, arrLocations);
 
@@ -16,7 +16,6 @@ export default function Header(props) {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    // const action = getLocationAction;
     dispatch(getLocationAction);
   }, []);
 
@@ -51,6 +50,11 @@ export default function Header(props) {
       ? nav.classList.add("is-sticky")
       : nav.classList.remove("is-sticky");
   };
+
+  const handleClick = () => {
+    //using pathname
+    history.push(`/danhsachphong?location=${value}`)
+  }
   return (
     <header className="px-0">
       <nav
@@ -256,9 +260,9 @@ export default function Header(props) {
                     }}
                     // {`/danhsachphong/${item.locationId}`}
                   >
-                    <NavLink to="/danhsachphong">
+                    <div onClick={handleClick}>
                       <i className="fa fa-search" style={{ color: "#fff" }}></i>
-                    </NavLink>
+                    </div>
                   </button>
                 </div>
               </div>
