@@ -1,0 +1,1 @@
+export const POST_REGISTER = "POST_REGISTER";

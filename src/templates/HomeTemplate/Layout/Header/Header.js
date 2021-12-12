@@ -110,7 +110,7 @@ export default function Header(props) {
             href="#"
             style={{ borderRadius: "1.25rem" }}
           >
-            <i class="fa fa-globe"></i>
+            <i className="fa fa-globe"></i>
           </a>
           <div>
             <li className=" dropdown active ">
@@ -135,12 +135,15 @@ export default function Header(props) {
                 style={{ left: "-65px" }}
                 aria-labelledby="navbarDropdown"
               >
-                <a className="dropdown-item font-weight-bold" href="#">
-                  Đăng kí
-                </a>
-                <a className="dropdown-item" href="#">
-                  Đăng nhập{" "}
-                </a>
+                <NavLink
+                  className="dropdown-item font-weight-bold"
+                  to="/register"
+                >
+                  Đăng ký
+                </NavLink>
+                <NavLink className="dropdown-item" to="/loginpage">
+                  Đăng nhập
+                </NavLink>
               </div>
             </li>
           </div>
