@@ -242,6 +242,7 @@ export default function Header(props) {
                   <label className="mt-2">Khách</label>
                   <input
                     type="number"
+                    autoComplete="off"
                     className="form-control border-0 p-0 h-0"
                     style={{ width: "100%", marginTop: "-15px" }}
                     id="exampleInputEmail1"
