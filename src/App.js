@@ -8,6 +8,7 @@ import HomeTemplate from "./templates/HomeTemplate/HomeTemplate";
 
 import Register from "./pages/Register/Register";
 import LoginPage from "./pages/Login/LoginPage";
+import ThongTinCaNhan from "./pages/ThongTinCaNhan/ThongTinCaNhan";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <HomeTemplate exact path="/danhsachphong" component={DanhSachPhong} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/loginpage" component={LoginPage} />
+        <HomeTemplate exact path="/user/dashboard" component={ThongTinCaNhan} />
       </Switch>
     </BrowserRouter>
   );

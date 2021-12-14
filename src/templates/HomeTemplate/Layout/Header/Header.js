@@ -5,13 +5,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { getLocationAction } from "../../../../redux/actions/QuanLyViTriActions";
 
+import { isAuthenticated, signout } from "../../../../auth";
+
 export default function Header(props) {
   // const [locations, setLocations] = useState([]);
   const { arrLocations } = useSelector((state) => state.QuanLyViTriReducer);
   // console.log(`arrLocations`, arrLocations);
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-
+  console.log(isAuthenticated());
   const dispatch = useDispatch();
   useEffect(() => {
     // const action = getLocationAction;
@@ -127,7 +129,19 @@ export default function Header(props) {
                   style={{ borderRadius: "1.25rem" }}
                 >
                   <i className="fa fa-bars mx-3"></i>
-                  <i className="fa fa-user-circle"></i>
+                  {isAuthenticated() ? (
+                    <div>
+                      <img
+                        style={({ height: "25px" }, { width: "25px" })}
+                        src={isAuthenticated().avatar}
+                        alt=""
+                      />
+                      <span>{isAuthenticated().name}</span>
+                    </div>
+                  ) : (
+                    <i className="fa fa-user-circle"></i>
+                  )}
+                  {/* */}
                 </div>
               </a>
               <div
@@ -135,15 +149,32 @@ export default function Header(props) {
                 style={{ left: "-65px" }}
                 aria-labelledby="navbarDropdown"
               >
-                <NavLink
-                  className="dropdown-item font-weight-bold"
-                  to="/register"
-                >
-                  Đăng ký
-                </NavLink>
-                <NavLink className="dropdown-item" to="/loginpage">
-                  Đăng nhập
-                </NavLink>
+                {isAuthenticated() ? (
+                  <>
+                    <NavLink className="dropdown-item" to="/">
+                      Thông tin cá nhân
+                    </NavLink>
+                    <NavLink
+                      className="dropdown-item"
+                      onClick={() => signout(() => {})}
+                      to="/"
+                    >
+                      Đăng xuất
+                    </NavLink>
+                  </>
+                ) : (
+                  <>
+                    <NavLink
+                      className="dropdown-item font-weight-bold"
+                      to="/register"
+                    >
+                      Đăng ký
+                    </NavLink>
+                    <NavLink className="dropdown-item" to="/loginpage">
+                      Đăng nhập
+                    </NavLink>
+                  </>
+                )}
               </div>
             </li>
           </div>

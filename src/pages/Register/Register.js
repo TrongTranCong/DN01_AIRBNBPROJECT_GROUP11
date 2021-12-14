@@ -14,33 +14,22 @@ export default function Register() {
 
   const formik = useFormik({
     initialValues: {
-      taiKhoan: "",
-      matKhau: "",
-      nhapLaiMatKhau: "",
-      hoTen: "",
+      // taiKhoan: "",
+      // matKhau: "",
+      // nhapLaiMatKhau: "",
+      // hoTen: "",
+      // email: "",
+      // soDT: "",
+      name: "",
       email: "",
-      soDT: "",
+      password: "",
+      phone: "",
+      birthday: "",
+      gender: true,
+      address: "",
     },
-    validationSchema: Yup.object().shape({
-      taiKhoan: Yup.string().required("tài khoản không được để trống"),
-      matKhau: Yup.string()
-        .required("mật khẩu không được để trống")
-        .min(6, "mật khẩu tối đa 6 ký tự")
-        .max(60, "mật khẩu tối đa 60 ký tự"),
-      nhapLaiMatKhau: Yup.string().required("mật khẩu được để trống"),
-      hoTen: Yup.string().required("họ tên không được để trống"),
-      email: Yup.string()
-        .required("Email không được để trống")
-        .email("email không đúng định dạng"),
-      soDT: Yup.string()
-        .required("số điện thoại không được để trống")
-        .matches(
-          /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
-          "số điện thoại không đúng định dạng"
-        ),
-    }),
+    validationSchema: Yup.object().shape({}),
     onSubmit: (values) => {
-      // chay ok rô do tưét thửu xem da
       dispatch(DangKyAction(values));
       // console.log(values);
     },
@@ -82,8 +71,8 @@ export default function Register() {
                   <input
                     type="text"
                     className="input-register col-12 col-md-5 "
-                    placeholder="Tài khoản"
-                    id="taiKhoan"
+                    placeholder="name"
+                    name="name"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
@@ -91,10 +80,10 @@ export default function Register() {
                     <div>{formik.errors.taiKhoan}</div>
                   )}
                   <input
-                    type="password"
+                    type="email"
                     className="input-register col-12 col-md-5 "
-                    placeholder="Mật khẩu"
-                    id="matKhau"
+                    placeholder="email"
+                    name="email"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
@@ -106,8 +95,8 @@ export default function Register() {
                   <input
                     type="password"
                     className="input-register col-12 col-md-5"
-                    placeholder="Nhập lại mật khẩu"
-                    id="nhapLaiMatKhau"
+                    placeholder="password"
+                    name="password"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
@@ -116,14 +105,14 @@ export default function Register() {
                       <div>{formik.errors.nhapLaiMatKhau}</div>
                     )}
                   <input
-                    type="text"
+                    type="number"
                     className="input-register col-12 col-md-5"
-                    placeholder="Họ tên"
-                    id="hoTen"
+                    placeholder="phone"
+                    name="phone"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  ,
+
                   {formik.touched.hoTen && formik.errors.hoTen && (
                     <div>{formik.errors.hoTen}</div>
                   )}
@@ -132,8 +121,8 @@ export default function Register() {
                   <input
                     type="text"
                     className="input-register col-12 col-md-5"
-                    placeholder="Email"
-                    id="email"
+                    placeholder="birthday"
+                    name="birthday"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
@@ -143,14 +132,37 @@ export default function Register() {
                   <input
                     type="text"
                     className="input-register col-12 col-md-5"
-                    placeholder="Số điện thoại"
-                    id="soDT"
+                    placeholder="address"
+                    name="address"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
                   {formik.touched.soDT && formik.errors.soDT && (
                     <div>{formik.errors.soDT}</div>
                   )}
+                </div>
+                <div className="regiser-col4 row">
+                  <input
+                    name="gender"
+                    type="radio"
+                    value="true"
+                    onChange={formik.handleChange}
+                  />
+                  Nam
+                  <input
+                    name="gender"
+                    type="radio"
+                    value="false"
+                    onChange={formik.handleChange}
+                  />
+                  Nữ
+                  <input
+                    name="gender"
+                    type="radio"
+                    value="0"
+                    onChange={formik.handleChange}
+                  />
+                  Khác
                 </div>
                 <button type="submit" className="button-register">
                   Đăng ký
