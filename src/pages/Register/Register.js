@@ -14,12 +14,6 @@ export default function Register() {
 
   const formik = useFormik({
     initialValues: {
-      // taiKhoan: "",
-      // matKhau: "",
-      // nhapLaiMatKhau: "",
-      // hoTen: "",
-      // email: "",
-      // soDT: "",
       name: "",
       email: "",
       password: "",
@@ -27,11 +21,12 @@ export default function Register() {
       birthday: "",
       gender: true,
       address: "",
+      type: "ADMIN",
     },
     validationSchema: Yup.object().shape({}),
     onSubmit: (values) => {
       dispatch(DangKyAction(values));
-      // console.log(values);
+      console.log(values.type);
     },
   });
 
@@ -163,6 +158,16 @@ export default function Register() {
                     onChange={formik.handleChange}
                   />
                   Khác
+                </div>
+                <div className="typeuser">
+                  <input
+                    type="text"
+                    className="input-register col-12 col-md-5"
+                    placeholder="type"
+                    name="type"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
                 </div>
                 <button type="submit" className="button-register">
                   Đăng ký

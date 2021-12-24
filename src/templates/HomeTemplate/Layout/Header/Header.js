@@ -151,7 +151,7 @@ export default function Header(props) {
               >
                 {isAuthenticated() ? (
                   <>
-                    <NavLink className="dropdown-item" to="/">
+                    <NavLink className="dropdown-item" to="/user/dashboard">
                       Thông tin cá nhân
                     </NavLink>
                     <NavLink
