@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LoginPage.css";
 import loginImage from "../../assets/login-image.jpg";
 import { useHistory } from "react-router";
 import { useFormik } from "formik";
 import { DangNhapAction } from "../../redux/actions/UserLoginAction";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+
+import { DOMAIN } from "../../util/setting";
 
 export default function LoginPage(props) {
+  const [errMsg, setErrMsg] = useState("");
   const dispatch = useDispatch();
   // console.log(props);
   const history = useHistory();
@@ -16,10 +20,26 @@ export default function LoginPage(props) {
       email: "",
       password: "",
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      try {
+        const response = await axios({
+          url: `${DOMAIN}/api/auth/login`,
+          method: "POST",
+          headers: {
+            tokenByClass:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCDEkMOgIE7hurVuZyAwMSIsIkhldEhhblN0cmluZyI6IjMwLzA2LzIwMjIiLCJIZXRIYW5UaW1lIjoiMTY1NjU0NzIwMDAwMCIsIm5iZiI6MTYyMDkyNTIwMCwiZXhwIjoxNjU2Njk0ODAwfQ.6o2C_IS8e7HlB9dUZ9eFRYOb2ST9LjIIbn4fO_SS1Qc",
+          },
+          data: values,
+        });
+        // console.log(response.data);
+        dispatch(DangNhapAction({ values, callback: handleLoginSucces }));
+      } catch (error) {
+        setErrMsg(error.response.data.message);
+      }
+
       // console.log("values", values);
-      const action = DangNhapAction({ values, callback: handleLoginSucces });
-      dispatch(action);
+      // const action = DangNhapAction({ values, callback: handleLoginSucces });
+      // dispatch(action);
     },
   });
 
@@ -27,18 +47,18 @@ export default function LoginPage(props) {
     history.push("/");
   };
   const handleLoginSucces = () => {
-    // history.push("/");
-    history.goBack();
+    history.push("/");
+    // history.goBack();
   };
 
   return (
-    <div className="login-page py-2 bg-light">
+    <div className="login-page py-5 bg-light">
       <div className="container">
         <div className="row content no-gutters">
-          <div className="col-lg-5 ">
+          <div className="col-lg-5 login-col-left ">
             <img src={loginImage} className="img-fluid" alt="login-img" />
           </div>
-          <div className="col-lg-7 text-center">
+          <div className="col-lg-7 login-col-right text-center">
             <div>
               <div className="modal-header">
                 <div className="space"></div>
@@ -74,6 +94,11 @@ export default function LoginPage(props) {
                   name="password"
                   onChange={formik.handleChange}
                 />
+                {errMsg !== "" && (
+                  <div style={{ color: "red" }} className="error-message">
+                    {errMsg}
+                  </div>
+                )}
                 <button type="submit" className="button-login">
                   Đăng nhập
                 </button>

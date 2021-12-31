@@ -23,7 +23,7 @@
   color: rgb(255, 56, 92);
 }
 .form-register {
-  width: 86%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -33,28 +33,49 @@
   box-shadow: 12px 12px 22px;
 }
 
-.register-col1,
+/* .register-col1,
 .register-col2,
 .register-col3 {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
   justify-content: space-between;
+} */
+
+.form-register .user-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 12px 0 12px 0;
+}
+
+form .user-details .input-box {
+  width: calc(100% / 2 - 20px);
 }
 
 .title-register {
   margin: 5px 0 15px 0;
   font-weight: 700;
+  /* position: relative; */
 }
+/* .title-register::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  bottom: -3px;
+  left: auto;
+  height: 3px;
+  background: #fd1d1d;
+  margin: 0 auto;
+} */
 
 /* //// */
 .form-register .input-register {
-  position: relative;
   height: 50px;
-  width: 47%;
+  width: 100%;
   border: none;
   outline: none;
-  margin-bottom: 14px;
+  margin-bottom: 15px;
   border-radius: 60px;
   padding-left: 20px;
   box-shadow: -1px 1px 30px -11px rgba(0, 0, 0, 0.75);
@@ -77,23 +98,52 @@
   color: rgb(29, 155, 240);
   transform: translateY(-2px);
 }
-/* 
-input[class="input-register"] {
-  position: relative;
-  font-size: 17px;
-  color: red;
+
+.gender {
+  margin: 12px 0;
 }
-input[class="input-register"]::placeholder {
+.gender .gender-title {
   font-size: 17px;
-  transition: 0.3s ease;
+}
+.gender .category {
+  display: flex;
+  justify-content: space-evenly;
 }
 
-input[class="input-register"]:focus::placeholder {
-  position: absolute;
-  font-size: 12px;
-  color: rgb(29, 155, 240);
-  transform: translateY(-2px);
-} */
+input[name="gender"] {
+  display: none;
+}
+.gender-detail {
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 17px;
+  display: block;
+}
+.gender-detail .gender-otp {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 16px 4px 10px;
+  border-radius: 24px;
+  transition: 0.25s ease;
+}
+.gender-detail .gender-otp:hover,
+input[name="gender"]:checked + .gender-otp {
+  background-color: #d6d6e5;
+}
+.gender-detail .gender-otp::before {
+  content: "";
+  background-color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 8px;
+  transition: 0.25s ease;
+  box-shadow: inset 0 0 0 2px #00005c;
+}
+
+input[name="gender"]:checked + .gender-otp::before {
+  box-shadow: inset 0 0 0 6px #00005c;
+}
 
 .button-register {
   background: #dc3545;
@@ -167,6 +217,19 @@ input[class="input-register"]:focus::placeholder {
 .loginlink:hover {
   color: #dc3545;
 }
+
+/* remove arrows type number  */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 /* /////  */
 /* reponsive  */
 @media screen and (max-width: 1200px) {
@@ -193,10 +256,44 @@ input[class="input-register"]:focus::placeholder {
     width: 100%;
   }
 }
+@media screen and (max-width: 700px) {
+  .form-register {
+    width: 82%;
+  }
+}
 
 @media screen and (max-width: 992px) {
   .register img {
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  form .user-details .input-box {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .register-col-left {
+    display: none;
+  }
+  .register-col-right {
+    background-image: url("../../assets/signup-image.jpeg");
+    object-fit: cover;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center right;
+    border-radius: 30px;
+  }
+  .title-register {
+    color: rgb(0 18 144);
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .form-register {
+    background-image: none;
   }
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+
 // import { Redirect } from "react-router-dom";
 // import { useHistory } from "react-router";
 
@@ -25,14 +26,12 @@ export const DangNhapAction = ({ values, callback }) => {
         });
         callback();
       }
-
       // có 2 cách
       // cách 1 cài 1 cái lib sử dụng đối với ređux thunk và saga
       // cách 2 truyền callback
       // lib tên chi mà mình quên rồi, config hơi cực
       // mình chỉ cách truyền call back hỉ
-
-      // console.log(result.status);
+      console.log(result);
     } catch (errors) {
       console.log(errors.response.data.message);
     }

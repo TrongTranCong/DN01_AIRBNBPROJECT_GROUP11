@@ -12,6 +12,7 @@ import ThongTinCaNhan from "./pages/ThongTinCaNhan/ThongTinCaNhan";
 import PrivateRoute from "./auth/PrivateRoute";
 import CapNhatNguoiDung from "./pages/ThongTinCaNhan/CapNhatNguoiDung";
 import DanhSachNguoiDung from "./pages/DanhSachNguoiDung/DanhSachNguoiDung";
+import AdminRoute from "./auth/AdminRoute";
 
 function App() {
   return (
@@ -23,12 +24,12 @@ function App() {
         <Route exact path="/loginpage" component={LoginPage} />
 
         <PrivateRoute exact path="/user/dashboard" component={ThongTinCaNhan} />
-        <PrivateRoute
+        <AdminRoute
           exact
           path="/user/capnhatnguoidung"
           component={CapNhatNguoiDung}
         />
-        <PrivateRoute exact path="/getlistuser" component={DanhSachNguoiDung} />
+        <AdminRoute exact path="/getlistuser" component={DanhSachNguoiDung} />
       </Switch>
     </BrowserRouter>
   );

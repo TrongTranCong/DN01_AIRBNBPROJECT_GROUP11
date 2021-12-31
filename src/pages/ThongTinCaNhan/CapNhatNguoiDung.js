@@ -24,27 +24,6 @@ export default function UpdateProfile({ match }) {
     formData: new FormData(),
   });
 
-  //   const init = () => {
-  //     const token = isAuthenticated().token;
-  //     read(match.params.userId, token).then((data) => {
-  //       if (data.error) {
-  //         setValues({ error: data.error });
-  //       } else {
-  //         console.log(data);
-  //         setValues({
-  //           ...values,
-  //           id: data._id,
-  //           name: data.name,
-  //           email: data.email,
-  //           description: data.description,
-  //           phoneNumber: data.phoneNumber,
-  //           address: data.address,
-  //           dob: moment(data.dob).format("YYYY-MM-DD"),
-  //         });
-  //       }
-  //     });
-  //   };
-
   const { user, token } = isAuthenticated();
   const {
     id,
@@ -62,14 +41,6 @@ export default function UpdateProfile({ match }) {
     formData,
     fileSize,
   } = values;
-
-  useEffect(
-    () => {
-      //   init();
-    },
-    // eslint-disable-next-line
-    []
-  );
 
   const isValid = () => {
     if (fileSize > 100000) {
@@ -112,21 +83,6 @@ export default function UpdateProfile({ match }) {
       });
       return false;
     }
-    // if (isValid()) {
-    //   update(id, token, formData).then((data) => {
-    //     if (data.error) {
-    //       setValues({ ...values, error: data.error });
-    //     } else {
-    //       updateUser(data, () => {
-    //         setValues({
-    //           ...values,
-    //           loading: false,
-    //           reload: true,
-    //         });
-    //       });
-    //     }
-    //   });
-    // }
   };
 
   const newPostForm = () => {
@@ -244,25 +200,6 @@ export default function UpdateProfile({ match }) {
       </div>
     );
 
-  //   const goBack = () => {
-  //     const role = user.role;
-  //     let temp =
-  //       role === 0
-  //         ? "user"
-  //         : role === 1
-  //         ? "staff"
-  //         : role === 2
-  //         ? "center"
-  //         : "admin";
-  //     return (
-  //       <div className="mt-5">
-  //         <Link to={`/${temp}/dashboard`} className="text-warning">
-  //           Back to Dashboard
-  //         </Link>
-  //       </div>
-  //     );
-  //   };
-
   const reloadPage = () => {
     if (reload) {
       return window.location.reload();
@@ -278,7 +215,6 @@ export default function UpdateProfile({ match }) {
           style={{ height: "250px", width: "auto" }}
           className="img-thumbnail rounded border border-primary"
           src={photoUrl}
-          //   onError={(i) => (i.target.src = `${DefaultAvatar}`)}
           alt={name}
         />
       </>

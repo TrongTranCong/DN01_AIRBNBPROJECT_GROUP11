@@ -21,9 +21,11 @@ export default function Register() {
       birthday: "",
       gender: true,
       address: "",
-      type: "ADMIN",
+      type: "CLIENT",
     },
-    validationSchema: Yup.object().shape({}),
+    validationSchema: Yup.object().shape({
+      name: Yup.string().required("tên"),
+    }),
     onSubmit: (values) => {
       dispatch(DangKyAction(values));
       console.log(values.type);
@@ -34,13 +36,14 @@ export default function Register() {
     history.push("/");
   };
   return (
-    <div className="register py-2 bg-light">
+    <div className="register py-3 bg-light">
       <div className="container">
         <div className="row content no-gutters">
-          <div className="col-lg-5">
+          <div className="col-lg-5 register-col-left">
             <img src={sigupImage} className=" img-fluid" alt="register-img" />
           </div>
-          <div className="col-lg-7 text-center">
+          <div className="col-lg-7 register-col-right text-center ">
+            {/* text-center */}
             <div>
               <div className="modal-header">
                 <div className="space"></div>
@@ -62,112 +65,99 @@ export default function Register() {
               </div>
               <h3 className="title-register">Đăng kí tài khoản airbnb</h3>
               <form className="form-register" onSubmit={formik.handleSubmit}>
-                <div className="register-col1 row">
-                  <input
-                    type="text"
-                    className="input-register col-12 col-md-5 "
-                    placeholder="name"
-                    name="name"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.taiKhoan && formik.errors.taiKhoan && (
-                    <div>{formik.errors.taiKhoan}</div>
-                  )}
-                  <input
-                    type="email"
-                    className="input-register col-12 col-md-5 "
-                    placeholder="email"
-                    name="email"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.matKhau && formik.errors.matKhau && (
-                    <div>{formik.errors.matKhau}</div>
-                  )}
+                <div className="user-details">
+                  <div className="input-box">
+                    <input
+                      type="text"
+                      className="input-register  "
+                      placeholder="Họ tên"
+                      name="name"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                  </div>
+                  <div className="input-box">
+                    <input
+                      type="email"
+                      className="input-register "
+                      placeholder="Email"
+                      name="email"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                  </div>
+                  <div className="input-box">
+                    <input
+                      type="password"
+                      className="input-register"
+                      placeholder="Mật khẩu"
+                      name="password"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                  </div>
+                  <div className="input-box">
+                    <input
+                      type="number"
+                      className="input-register"
+                      placeholder="Số điện thoại"
+                      name="phone"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                  </div>
+                  <div className="input-box">
+                    <input
+                      type="text"
+                      className="input-register "
+                      placeholder="Ngày sinh"
+                      name="birthday"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                  </div>
+                  <div className="input-box">
+                    <input
+                      type="text"
+                      className="input-register "
+                      placeholder="Địa chỉ"
+                      name="address"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                  </div>
                 </div>
-                <div className="register-col2 row">
-                  <input
-                    type="password"
-                    className="input-register col-12 col-md-5"
-                    placeholder="password"
-                    name="password"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.nhapLaiMatKhau &&
-                    formik.errors.nhapLaiMatKhau && (
-                      <div>{formik.errors.nhapLaiMatKhau}</div>
-                    )}
-                  <input
-                    type="number"
-                    className="input-register col-12 col-md-5"
-                    placeholder="phone"
-                    name="phone"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-
-                  {formik.touched.hoTen && formik.errors.hoTen && (
-                    <div>{formik.errors.hoTen}</div>
-                  )}
-                </div>
-                <div className="register-col3 row">
-                  <input
-                    type="text"
-                    className="input-register col-12 col-md-5"
-                    placeholder="birthday"
-                    name="birthday"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.email && formik.errors.email && (
-                    <div>{formik.errors.email}</div>
-                  )}
-                  <input
-                    type="text"
-                    className="input-register col-12 col-md-5"
-                    placeholder="address"
-                    name="address"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.soDT && formik.errors.soDT && (
-                    <div>{formik.errors.soDT}</div>
-                  )}
-                </div>
-                <div className="regiser-col4 row">
-                  <input
-                    name="gender"
-                    type="radio"
-                    value="true"
-                    onChange={formik.handleChange}
-                  />
-                  Nam
-                  <input
-                    name="gender"
-                    type="radio"
-                    value="false"
-                    onChange={formik.handleChange}
-                  />
-                  Nữ
-                  <input
-                    name="gender"
-                    type="radio"
-                    value="0"
-                    onChange={formik.handleChange}
-                  />
-                  Khác
-                </div>
-                <div className="typeuser">
-                  <input
-                    type="text"
-                    className="input-register col-12 col-md-5"
-                    placeholder="type"
-                    name="type"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
+                <div className="gender">
+                  <span style={{ color: "#721919" }} className="gender-title">
+                    Giới tính
+                    <i
+                      style={{ color: "#721919" }}
+                      className="fas fa-question-circle ml-1"
+                    ></i>
+                  </span>
+                  <div className="category">
+                    <label className="gender-detail">
+                      <input
+                        type="radio"
+                        name="gender"
+                        id="male"
+                        value="true"
+                        checked
+                        onChange={formik.handleChange}
+                      />
+                      <span className="gender-otp">Nam</span>
+                    </label>
+                    <label className="gender-detail">
+                      <input
+                        type="radio"
+                        name="gender"
+                        id="female"
+                        value="false"
+                        onChange={formik.handleChange}
+                      />
+                      <span className="gender-otp">Nữ</span>
+                    </label>
+                  </div>
                 </div>
                 <button type="submit" className="button-register">
                   Đăng ký
@@ -200,4 +190,95 @@ export default function Register() {
       </div>
     </div>
   );
+}
+
+{
+  /* <form className="form-register" onSubmit={formik.handleSubmit}>
+                <div className="register-col1 row">
+                  <input
+                    type="text"
+                    className="input-register col-12 col-md-5 "
+                    placeholder="name"
+                    name="name"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.name && formik.errors.name && (
+                    <div>{formik.errors.name}</div>
+                  )}
+                  <input
+                    type="email"
+                    className="input-register col-12 col-md-5 "
+                    placeholder="email"
+                    name="email"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                </div>
+                <div className="register-col2 row">
+                  <input
+                    type="password"
+                    className="input-register col-12 col-md-5"
+                    placeholder="password"
+                    name="password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+
+                  <input
+                    type="number"
+                    className="input-register col-12 col-md-5"
+                    placeholder="phone"
+                    name="phone"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                </div>
+                <div className="register-col3 row">
+                  <input
+                    type="text"
+                    className="input-register col-12 col-md-5"
+                    placeholder="birthday"
+                    name="birthday"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+
+                  <input
+                    type="text"
+                    className="input-register col-12 col-md-5"
+                    placeholder="address"
+                    name="address"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                </div>
+                <div className="regiser-col4 row">
+                  <input
+                    name="gender"
+                    type="radio"
+                    value="true"
+                    onChange={formik.handleChange}
+                  />
+                  Nam
+                  <input
+                    name="gender"
+                    type="radio"
+                    value="false"
+                    onChange={formik.handleChange}
+                  />
+                  Nữ
+                  <input
+                    name="gender"
+                    type="radio"
+                    value="0"
+                    onChange={formik.handleChange}
+                  />
+                  Khác
+                </div>
+                <button type="submit" className="button-register">
+                  Đăng ký
+                </button>
+                <div className="option">Hoặc</div>
+              </form> */
 }

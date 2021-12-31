@@ -2,6 +2,7 @@ import { TOKEN } from "../../util/setting";
 
 const stateDefault = {
   userLogin: JSON.parse(localStorage.getItem("LOGIN_USER")) || {},
+  // errors: "",
 };
 
 export const QuanLyNguoiDungReducer = (state = stateDefault, action) => {
@@ -13,6 +14,9 @@ export const QuanLyNguoiDungReducer = (state = stateDefault, action) => {
       localStorage.setItem(TOKEN, JSON.stringify(infoLogin.token));
       return { ...state, userLogin: infoLogin };
     }
+    // case "ERRORS": {
+    //   return { ...state, errors: action.payload };
+    // }
     default:
       return { ...state };
   }

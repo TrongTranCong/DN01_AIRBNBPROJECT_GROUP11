@@ -28,7 +28,7 @@ export default function ThongTinCaNhan() {
   const adminLinks = () => {
     return (
       <div className="card">
-        <h4 className="card-header">Admin User</h4>
+        <h4 className="card-header">Quản Trị</h4>
         <ul className="list-group">
           <li className="list-group-item">
             <NavLink className="nav-link" to="/user/capnhatnguoidung">
@@ -36,13 +36,13 @@ export default function ThongTinCaNhan() {
             </NavLink>
           </li>
 
-          {/* {type && type !== "CLIENT" && ( */}
-          <li className="list-group-item">
-            <NavLink className="nav-link" to="/getlistuser">
-              Người dùng quản lý
-            </NavLink>
-          </li>
-          {/* )} */}
+          {type && type !== "CLIENT" && (
+            <li className="list-group-item">
+              <NavLink className="nav-link" to="/getlistuser">
+                Người dùng quản lý
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
     );
@@ -62,6 +62,11 @@ export default function ThongTinCaNhan() {
           }
           {<li className="list-group-item">Địa chỉ :{address} </li>}
           {<li className="list-group-item">Số điện thoại :{phone} </li>}
+          {
+            <li className="list-group-item">
+              Loại người dùng : {type === "CLIENT" ? "Khách hàng" : "Quản trị"}
+            </li>
+          }
         </ul>
       </div>
     );

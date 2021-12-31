@@ -12,11 +12,13 @@ import "./Modal.css";
 import { capNhatNguoiDung } from "../../redux/actions/CapNhatNguoiDungAction";
 import { isAuthenticated } from "../../auth/index";
 import { XoaNguoiDung } from "../../redux/actions/XoaNguoiDungAction";
+import { Header } from "antd/lib/layout/layout";
+import { themNguoiDung } from "../../redux/actions/ThemNguoiDungAction";
 
 export default function DanhSachNguoiDung() {
   const { listUser } = useSelector((state) => state.DanhSachNguoiDungReducer);
   const dispatch = useDispatch();
-  const [index, setIndex] = useState(-1);
+  const [index, setIndex] = useState(-2);
   const [values, setValues] = useState({
     name: "",
     gender: "",
@@ -25,16 +27,24 @@ export default function DanhSachNguoiDung() {
     address: "",
     phone: "",
     id: "",
+    password: "",
   });
-  const { name, gender, email, birthday, address, phone, id } = values;
+  const { name, gender, email, birthday, address, phone, id, password } =
+    values;
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value, error: "" });
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = (event, number) => {
     event.preventDefault();
-    const action = capNhatNguoiDung(values, id);
-    console.log(values);
-    dispatch(action);
+    if (number === -1) {
+      // console.log("dang ky");
+      const action = themNguoiDung(values);
+      dispatch(action);
+      return window.location.reload();
+    } else {
+      const action = capNhatNguoiDung(values, id);
+      dispatch(action);
+    }
     setIndex(-1);
     return window.location.reload();
   };
@@ -43,7 +53,6 @@ export default function DanhSachNguoiDung() {
     let answer = window.confirm("Are you sure you want to delete this user?");
     if (answer) {
       dispatch(XoaNguoiDung(listUser[index]._id));
-      return window.location.reload();
     }
   };
 
@@ -51,16 +60,17 @@ export default function DanhSachNguoiDung() {
     const action = getListUser();
     dispatch(action);
   }, [dispatch]);
-  // console.log(values);
 
   useEffect(() => {
-    const tempName = listUser[index] && listUser[index].name;
-    const tempGender = listUser[index] && listUser[index].gender;
-    const tempEmail = listUser[index] && listUser[index].email;
-    const tempBirthday = listUser[index] && listUser[index].birthday;
-    const tempAddress = listUser[index] && listUser[index].address;
-    const tempPhone = listUser[index] && listUser[index].phone;
-    const tempId = listUser[index] && listUser[index]._id;
+    // if (index >= 0) {
+    const tempName = (listUser[index] && listUser[index].name) || "";
+    const tempGender = (listUser[index] && listUser[index].gender) || false;
+    const tempEmail = (listUser[index] && listUser[index].email) || "";
+    const tempBirthday = (listUser[index] && listUser[index].birthday) || "";
+    const tempAddress = (listUser[index] && listUser[index].address) || "";
+    const tempPhone = (listUser[index] && listUser[index].phone) || "";
+    const tempId = (listUser[index] && listUser[index]._id) || "";
+    const tempPass = listUser[index] && listUser[index].password;
     // console.log(JSON.stringify(tempId));
     setValues({
       ...values,
@@ -71,7 +81,9 @@ export default function DanhSachNguoiDung() {
       address: tempAddress,
       phone: tempPhone,
       id: tempId,
+      password: tempPass,
     });
+    // }
   }, [index]);
 
   const renderListUser = () => {
@@ -108,20 +120,25 @@ export default function DanhSachNguoiDung() {
     });
   };
 
-  const viewDetail = (index) => {
-    if ((index) => 0) {
+  const viewDetail = (number) => {
+    if (number >= -1) {
       return (
         <div className="modal fade" id="myModal">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="card-header">
-                <h2 id="header-title">Cập nhật người dùng</h2>
+                <h2 id="header-title">
+                  {number === -1 ? "Thêm" : "Cập nhật"} người dùng
+                </h2>
               </div>
               {/* Modal Header */}
 
               {/* Modal body */}
               <div className="modal-body">
-                <form id="form-update1" onSubmit={handleSubmit}>
+                <form
+                  id="form-update1"
+                  onSubmit={(e) => handleSubmit(e, number)}
+                >
                   <div className="form-group">
                     <div className="input-group">
                       <div className="input-group-prepend">
@@ -136,8 +153,6 @@ export default function DanhSachNguoiDung() {
                         className="form-control input-sm"
                         placeholder="Họ và tên"
                         onChange={handleChange("name")}
-                        // onBlur={formik.handleBlur}
-                        // value={listUser[index] && listUser[index].name}
                         value={name}
                       />
                       {/* {formik.touched.name && formik.errors.name && (
@@ -160,33 +175,33 @@ export default function DanhSachNguoiDung() {
                         className="form-control input-sm"
                         placeholder="Email"
                         onChange={handleChange("email")}
-                        // value={listUser[index] && listUser[index].email}\
                         value={email}
                       />
                     </div>
                     <span className="sp-thongbao" id="tbEmail" />
                   </div>
 
-                  {/* <div className="form-group">
-                    <div className="input-group">
-                      <div className="input-group-prepend">
-                        <span className="input-group-text">
-                          <i className="fa fa-key" aria-hidden="true" />
-                        </span>
+                  {number === -1 ? (
+                    <div className="form-group">
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
+                            <i className="fa fa-key" />
+                          </span>
+                        </div>
+                        <input
+                          type="password"
+                          name="password"
+                          id="password"
+                          className="form-control input-sm"
+                          placeholder="Mật khẩu"
+                          onChange={handleChange("password")}
+                          value={password}
+                        />
                       </div>
-                      <input
-                        onChange={handleChange("password")}
-                        type="text"
-                        name="password"
-                        id="password"
-                        className="form-control input-sm"
-                        placeholder="Mật khẩu"
-                        // value={listUser[index] && listUser[index].address}
-                        value={Password}
-                      />
+                      <span className="sp-thongbao" id="tbEmail" />
                     </div>
-                    <span className="sp-thongbao" id="tbPass" />
-                  </div> */}
+                  ) : null}
 
                   <div className="form-group">
                     <div className="input-group">
@@ -289,14 +304,14 @@ export default function DanhSachNguoiDung() {
                   </div>
 
                   <div className="modal-footer" id="modal-footer">
-                    <button
+                    {/* <button
                       id="btnThemNguoiDung"
                       type="button"
                       className="btn btn-success"
-                      // onClick=""
+                      
                     >
                       Thêm người dùng
-                    </button>
+                    </button> */}
                     {/* data-dismiss="modal" */}
                     <button
                       id="btnCapNhat"
@@ -304,7 +319,7 @@ export default function DanhSachNguoiDung() {
                       // onClick=""
                       className="btn btn-success"
                     >
-                      Cập nhật
+                      {number === -1 ? "Thêm" : "Cập nhật"}
                     </button>
                     {/* data-dismiss="modal" */}
                     <button
@@ -312,7 +327,7 @@ export default function DanhSachNguoiDung() {
                       type="button"
                       className="btn btn-danger"
                       data-dismiss="modal"
-                      onClick={() => setIndex(-1)}
+                      onClick={() => setIndex(-2)}
                     >
                       Đóng
                     </button>
@@ -339,9 +354,9 @@ export default function DanhSachNguoiDung() {
 
             <button
               className="btn btn-dark"
-              // onClick={() => {
-              //   resetForm();
-              // }}
+              data-toggle="modal"
+              data-target="#myModal"
+              onClick={() => setIndex(-1)}
             >
               Thêm Người dùng
             </button>
@@ -365,6 +380,7 @@ export default function DanhSachNguoiDung() {
       </div>
 
       {/* The Modal */}
+
       {/* {index} */}
       {viewDetail(index)}
     </div>
