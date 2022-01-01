@@ -5,6 +5,9 @@ import { useHistory } from "react-router";
 import { useFormik } from "formik";
 import { DangNhapAction } from "../../redux/actions/UserLoginAction";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
+import * as Yup from "yup";
+
 import axios from "axios";
 
 import { DOMAIN } from "../../util/setting";
@@ -20,6 +23,18 @@ export default function LoginPage(props) {
       email: "",
       password: "",
     },
+    validationSchema: Yup.object().shape({
+      email: Yup.string()
+        .required("Vui lòng điền vào trường này")
+        .matches(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, "Email không đúng định dạng"),
+      password: Yup.string()
+        .required("Vui lòng điền vào trường này")
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+          "Tối thiểu 6 ký tự, ít nhất một chữ cái và một số"
+        )
+        .max(10, "Mật khẩu tối đa không quá 10 ký tự"),
+    }),
     onSubmit: async (values) => {
       try {
         const response = await axios({
@@ -36,7 +51,6 @@ export default function LoginPage(props) {
       } catch (error) {
         setErrMsg(error.response.data.message);
       }
-
       // console.log("values", values);
       // const action = DangNhapAction({ values, callback: handleLoginSucces });
       // dispatch(action);
@@ -53,7 +67,7 @@ export default function LoginPage(props) {
 
   return (
     <div className="login-page py-5 bg-light">
-      <div className="container">
+      <div className="container vh-login">
         <div className="row content no-gutters">
           <div className="col-lg-5 login-col-left ">
             <img src={loginImage} className="img-fluid" alt="login-img" />
@@ -80,26 +94,65 @@ export default function LoginPage(props) {
               </div>
               <h3 className="title-login">Đăng nhập vào airbnb</h3>
               <form className="form-login" onSubmit={formik.handleSubmit}>
-                <input
-                  type="text"
-                  className="input-login"
-                  placeholder="Tài khoản"
-                  name="email"
-                  onChange={formik.handleChange}
-                />
-                <input
-                  type="password"
-                  className="input-login"
-                  placeholder="Mật khẩu"
-                  name="password"
-                  onChange={formik.handleChange}
-                />
+                <div
+                  // className={
+                  //   formik.touched.email && formik.errors.email
+                  //     ? "input-box"
+                  //     : "input-box my-4"
+                  // }
+                  className="input-box my-3"
+                >
+                  <input
+                    type="text"
+                    className={
+                      formik.touched.email && formik.errors.email
+                        ? " border-warn input-login bg-warn"
+                        : "input-login"
+                    }
+                    placeholder="Tài khoản"
+                    name="email"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                  />
+                  {formik.touched.email && formik.errors.email && (
+                    <div className="text-danger">{formik.errors.email}</div>
+                  )}
+                </div>
+
+                <div
+                  // className={
+                  //   formik.touched.password && formik.errors.password
+                  //     ? "input-box"
+                  //     : "input-box my-4"
+                  // }
+                  className="input-box my-3"
+                >
+                  <input
+                    type="password"
+                    className={
+                      formik.touched.password && formik.errors.password
+                        ? " border-warn input-login bg-warn"
+                        : "input-login"
+                    }
+                    placeholder="Mật khẩu"
+                    name="password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.password && formik.errors.password && (
+                    <div className="text-danger">{formik.errors.password}</div>
+                  )}
+                </div>
                 {errMsg !== "" && (
-                  <div style={{ color: "red" }} className="error-message">
+                  <div
+                    style={{ color: "red" }}
+                    className="error-message mb-4 mt-2"
+                  >
+                    <i class="far fa-times-circle mr-2"></i>
                     {errMsg}
                   </div>
                 )}
-                <button type="submit" className="button-login">
+                <button type="submit" className="button-login mt-3">
                   Đăng nhập
                 </button>
 
@@ -123,9 +176,9 @@ export default function LoginPage(props) {
               <div className="signup">
                 <p className="noacc">
                   Không có tài khoản?
-                  <a className="signupbtn" href="">
+                  <NavLink className="signupbtn" to="/register">
                     Đăng ký
-                  </a>
+                  </NavLink>
                 </p>
               </div>
             </div>

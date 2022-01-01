@@ -13,7 +13,7 @@ export default function Header(props) {
   // console.log(`arrLocations`, arrLocations);
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  console.log(isAuthenticated());
+  // console.log(isAuthenticated());
   const dispatch = useDispatch();
   useEffect(() => {
     // const action = getLocationAction;

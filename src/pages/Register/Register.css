@@ -7,6 +7,14 @@
     #cfdef3
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #e0eafc, #cfdef3);
+  /* height: 100vh; */
+}
+/* .content {
+  height: 100vh;
+} */
+
+.vh-register {
+  height: 100vh;
 }
 .register img {
   border-top-left-radius: 30px;
@@ -54,28 +62,17 @@ form .user-details .input-box {
 }
 
 .title-register {
-  margin: 5px 0 15px 0;
+  margin: 5px 0 12px 0;
   font-weight: 700;
   /* position: relative; */
 }
-/* .title-register::before {
-  content: "";
-  position: absolute;
-  width: 50%;
-  bottom: -3px;
-  left: auto;
-  height: 3px;
-  background: #fd1d1d;
-  margin: 0 auto;
-} */
 
-/* //// */
 .form-register .input-register {
   height: 50px;
   width: 100%;
   border: none;
   outline: none;
-  margin-bottom: 15px;
+
   border-radius: 60px;
   padding-left: 20px;
   box-shadow: -1px 1px 30px -11px rgba(0, 0, 0, 0.75);
@@ -89,6 +86,7 @@ form .user-details .input-box {
 }
 
 .input-register::placeholder {
+  color: rgb(99, 95, 95);
   font-size: 17px;
   transition: 0.3s ease;
 }
@@ -196,7 +194,7 @@ input[name="gender"]:checked + .gender-otp::before {
   position: relative;
   border: 1px solid #b6b6b6;
   border-radius: 2px;
-  width: 65%;
+  width: 60%;
   left: 50%;
   transform: translateX(-50%);
   margin: 25px 0;
@@ -218,42 +216,54 @@ input[name="gender"]:checked + .gender-otp::before {
   color: #dc3545;
 }
 
-/* remove arrows type number  */
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+/* ERRORS */
+.border-warn {
+  border: 2px solid red !important;
+}
+.bg-warn {
+  background: rgb(228 148 148 / 51%);
+}
+input[id="birthday2"]::before {
+  content: attr(placeholder);
+  color: rgb(99, 95, 95);
+  /* padding-right: 15px; */
 }
 
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
+/* ::-webkit-datetime-edit-month-field,
+::-webkit-datetime-edit-day-field,
+::-webkit-datetime-edit-year-field { 
+} */
+
+input::-webkit-calendar-picker-indicator {
+  padding-right: 12px;
 }
-/* /////  */
+/* // */
+
 /* reponsive  */
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 992px) {
   .form-register {
     width: 88%;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .form-register {
+    width: 95%;
   }
 }
 
 @media screen and (max-width: 768px) {
   .form-register {
-    /* flex: 1 0 47%; */
     width: 65%;
   }
-  .register-col1,
-  .register-col2,
-  .register-col3 {
-    margin: 0;
-  }
 
-  .form-register .input-register {
-    margin-bottom: 20px;
-  }
   .button-register {
     width: 100%;
+  }
+  form .user-details .input-box {
+    width: 100%;
+  }
+  .alreadyacc {
+    width: 75%;
   }
 }
 @media screen and (max-width: 700px) {
@@ -263,19 +273,9 @@ input[type="number"] {
 }
 
 @media screen and (max-width: 992px) {
-  .register img {
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
+  .form-register {
+    background-image: none;
   }
-}
-
-@media screen and (max-width: 768px) {
-  form .user-details .input-box {
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 992px) {
   .register-col-left {
     display: none;
   }
@@ -284,16 +284,63 @@ input[type="number"] {
     object-fit: cover;
     background-size: cover;
     background-attachment: fixed;
-    background-position: center right;
+    background-position: center;
     border-radius: 30px;
+    object-fit: cover;
   }
   .title-register {
-    color: rgb(0 18 144);
+    display: inline-block;
+    color: #000;
+    background: rgba(61, 98, 230, 0.84);
+    /* background: rgb(147 160 206 / 60%); */
+    /* color: #fff; */
+  }
+
+  .gender .gender-title {
+    background: rgb(147 160 206 / 60%);
+    font-weight: bold;
+    border-radius: 15px;
+  }
+
+  .gender-detail .gender-otp,
+  .loginwith,
+  .form-register .option {
+    color: #fff;
+  }
+  input[name="gender"]:checked + .gender-otp,
+  .gender-detail .gender-otp:hover {
+    color: #000;
+  }
+
+  .text-danger {
+    background: aliceblue;
+    /* width: 74%; */
+    margin: 2% auto;
+    border-radius: 3px;
+  }
+  .input-register::placeholder {
+    color: #000;
+  }
+  .bg-warn {
+    background: rgba(190, 57, 57, 0.884);
+  }
+  .alreadyacc .haveacc {
+    color: #fff;
   }
 }
 
-@media screen and (max-width: 992px) {
-  .form-register {
-    background-image: none;
-  }
+/* //// */
+/* .input-box[data-error] .input-register {
+  border-color: #c92432;
+  color: #c92432;
+  background: #fffafa;
 }
+
+.input-box[data-error]::after {
+  content: attr(data-error);
+  font-size: 0.85rem;
+  color: #c92432;
+  display: block;
+} */
+
+/* // */

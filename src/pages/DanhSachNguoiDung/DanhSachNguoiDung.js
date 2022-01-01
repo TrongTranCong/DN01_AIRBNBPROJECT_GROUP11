@@ -213,7 +213,7 @@ export default function DanhSachNguoiDung() {
                       <input
                         type="date"
                         name="birthday"
-                        id="birthday"
+                        id="birthday1"
                         className="form-control textbox-n"
                         onChange={handleChange("birthday")}
                         placeholder="Ngày sinh : "
@@ -222,27 +222,6 @@ export default function DanhSachNguoiDung() {
                     </div>
                     <span className="sp-thongbao" id="tbNgay" />
                   </div>
-
-                  <div className="form-group">
-                    <div className="input-group">
-                      <div className="input-group-prepend">
-                        <span className="input-group-text">
-                          <i className="fa fa-venus-mars" />
-                        </span>
-                      </div>
-                      <input
-                        type="text"
-                        name="gender"
-                        id="gender"
-                        className="form-control "
-                        onChange={handleChange("gender")}
-                        placeholder="Giới tinh"
-                        value={gender === true ? "Nam" : "Nữ"}
-                      />
-                    </div>
-                    <span className="sp-thongbao" id="tbNgay" />
-                  </div>
-
                   <div className="form-group">
                     <div className="input-group">
                       <div className="input-group-prepend">
@@ -302,7 +281,6 @@ export default function DanhSachNguoiDung() {
                     </div>
                     <span className="sp-thongbao" id="tbChucVu"></span>
                   </div>
-
                   <div className="modal-footer" id="modal-footer">
                     {/* <button
                       id="btnThemNguoiDung"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./Register.css";
 import sigupImage from "../../assets/signup-image.jpeg";
 import { useHistory } from "react-router";
@@ -24,20 +24,37 @@ export default function Register() {
       type: "CLIENT",
     },
     validationSchema: Yup.object().shape({
-      name: Yup.string().required("tên"),
+      name: Yup.string().required("Vui lòng điền vào trường này"),
+      email: Yup.string()
+        .required("Vui lòng điền vào trường này")
+        .matches(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, "Email không đúng định dạng"),
+      password: Yup.string()
+        .required("Vui lòng điền vào trường này")
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+          "Tối thiểu 6 ký tự, ít nhất một chữ cái và một số"
+        ),
+      phone: Yup.string()
+        .required("Vui lòng điền vào trường này")
+        .matches(
+          /(84|0[3|5|7|8|9])+([0-9]{8})\b/,
+          "Số điện thoại không đúng định dạng"
+        ),
+      birthday: Yup.string().required("Vui lòng điền vào trường này"),
+      address: Yup.string().required("Vui lòng điền vào trường này"),
     }),
     onSubmit: (values) => {
       dispatch(DangKyAction(values));
-      console.log(values.type);
+      // console.log(values.type);
     },
   });
-
   const handleCloseRegister = () => {
     history.push("/");
   };
   return (
     <div className="register py-3 bg-light">
-      <div className="container">
+      {/* <div className="vh"> */}
+      <div className="container vh-register">
         <div className="row content no-gutters">
           <div className="col-lg-5 register-col-left">
             <img src={sigupImage} className=" img-fluid" alt="register-img" />
@@ -66,65 +83,154 @@ export default function Register() {
               <h3 className="title-register">Đăng kí tài khoản airbnb</h3>
               <form className="form-register" onSubmit={formik.handleSubmit}>
                 <div className="user-details">
-                  <div className="input-box">
+                  <div
+                    className={
+                      formik.touched.name && formik.errors.name
+                        ? "input-box"
+                        : "input-box mb-4"
+                    }
+                  >
                     <input
+                      autoComplete="off"
                       type="text"
-                      className="input-register  "
+                      className={
+                        formik.touched.name && formik.errors.name
+                          ? " border-warn input-register bg-warn"
+                          : "input-register"
+                      }
                       placeholder="Họ tên"
                       name="name"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                     />
+                    {formik.touched.name && formik.errors.name && (
+                      <div className="text-danger">{formik.errors.name}</div>
+                    )}
                   </div>
-                  <div className="input-box">
+                  <div
+                    className={
+                      formik.touched.email && formik.errors.email
+                        ? "input-box"
+                        : "input-box mb-4"
+                    }
+                  >
                     <input
+                      autoComplete="off"
                       type="email"
-                      className="input-register "
+                      className={
+                        formik.touched.email && formik.errors.email
+                          ? " border-warn input-register bg-warn"
+                          : "input-register"
+                      }
                       placeholder="Email"
                       name="email"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                     />
+                    {formik.touched.email && formik.errors.email && (
+                      <div className="text-danger">{formik.errors.email}</div>
+                    )}
                   </div>
-                  <div className="input-box">
+                  <div
+                    className={
+                      formik.touched.password && formik.errors.password
+                        ? "input-box"
+                        : "input-box mb-4"
+                    }
+                  >
                     <input
                       type="password"
-                      className="input-register"
+                      className={
+                        formik.touched.password && formik.errors.password
+                          ? " border-warn input-register bg-warn"
+                          : "input-register"
+                      }
                       placeholder="Mật khẩu"
                       name="password"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                     />
+                    {formik.touched.password && formik.errors.password && (
+                      <div className="text-danger">
+                        {formik.errors.password}
+                      </div>
+                    )}
                   </div>
-                  <div className="input-box">
+                  <div
+                    className={
+                      formik.touched.phone && formik.errors.phone
+                        ? "input-box"
+                        : "input-box mb-4"
+                    }
+                  >
                     <input
-                      type="number"
-                      className="input-register"
+                      type="text"
+                      className={
+                        formik.touched.phone && formik.errors.phone
+                          ? " border-warn input-register bg-warn"
+                          : "input-register"
+                      }
                       placeholder="Số điện thoại"
                       name="phone"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                     />
+                    {formik.touched.phone && formik.errors.phone && (
+                      <div className="text-danger">{formik.errors.phone}</div>
+                    )}
                   </div>
-                  <div className="input-box">
+                  <div
+                    className={
+                      formik.touched.birthday && formik.errors.birthday
+                        ? "input-box"
+                        : "input-box mb-4"
+                    }
+                  >
                     <input
-                      type="text"
-                      className="input-register "
-                      placeholder="Ngày sinh"
+                      id="birthday2"
+                      type="date"
+                      className={
+                        formik.touched.birthday && formik.errors.birthday
+                          ? " border-warn input-register bg-warn"
+                          : "input-register"
+                      }
+                      placeholder={
+                        formik.isValid || formik.errors.birthday
+                          ? "Ngày sinh:"
+                          : ""
+                      }
                       name="birthday"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                     />
+                    {formik.touched.birthday && formik.errors.birthday && (
+                      <div className="text-danger">
+                        {formik.errors.birthday}
+                      </div>
+                    )}
                   </div>
-                  <div className="input-box">
+                  <div
+                    className={
+                      formik.touched.address && formik.errors.address
+                        ? "input-box"
+                        : "input-box mb-4"
+                    }
+                  >
                     <input
                       type="text"
-                      className="input-register "
+                      className={
+                        formik.touched.address && formik.errors.address
+                          ? " border-warn input-register bg-warn"
+                          : "input-register"
+                      }
                       placeholder="Địa chỉ"
                       name="address"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                     />
+                    {formik.touched.address && formik.errors.address && (
+                      <div className="text-danger">{formik.errors.address}</div>
+                    )}
                   </div>
                 </div>
                 <div className="gender">
@@ -188,6 +294,7 @@ export default function Register() {
           </div>
         </div>
       </div>
+      {/* </div> */}
     </div>
   );
 }

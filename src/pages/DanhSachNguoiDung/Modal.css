@@ -99,6 +99,6 @@ button:hover {
   }
 }
 
-input[type="date"]::before {
+input[id="birthday1"]::before {
   content: attr(placeholder);
 }
