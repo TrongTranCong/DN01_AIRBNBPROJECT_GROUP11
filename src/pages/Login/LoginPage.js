@@ -29,10 +29,10 @@ export default function LoginPage(props) {
         .matches(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, "Email không đúng định dạng"),
       password: Yup.string()
         .required("Vui lòng điền vào trường này")
-        .matches(
-          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-          "Tối thiểu 6 ký tự, ít nhất một chữ cái và một số"
-        )
+        // .matches(
+        //   /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+        //   "Tối thiểu 6 ký tự, ít nhất một chữ cái và một số"
+        // )
         .max(10, "Mật khẩu tối đa không quá 10 ký tự"),
     }),
     onSubmit: async (values) => {
