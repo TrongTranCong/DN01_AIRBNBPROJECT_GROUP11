@@ -36,10 +36,6 @@ export default function ThongTinCaNhan() {
   // console.log(name, email, password, phone, birthday, gender, address, type);
   // console.log(isAuthenticated());
 
-  const upDateAvatar = (avatar) => {
-    dispatch(capNhatAnhDaiDien(avatar));
-  };
-
   const handleChange = (name) => (event) => {
     const value = name === "photo" ? event.target.files[0] : event.target.value;
     formData.set(name, value);
@@ -47,7 +43,8 @@ export default function ThongTinCaNhan() {
 
   const clickSubmit = (event) => {
     event.preventDefault();
-    upDateAvatar(formData);
+    // console.log(formData.get(photo));
+    dispatch(capNhatAnhDaiDien(formData));
   };
 
   const adminLinks = () => {
@@ -124,7 +121,7 @@ export default function ThongTinCaNhan() {
           </div>
 
           <button
-            onClick={(event) => upDateAvatar(event.target.value)}
+            type="submit"
             // className="nav-link"
           >
             Cập nhật ảnh đại diện
@@ -136,7 +133,7 @@ export default function ThongTinCaNhan() {
 
   return (
     <Fragment>
-      {/* <Header className="mb-5" /> */}
+      <Header className="mb-5" />
 
       <div title="Dashboard" description={`G'day `} className="container ">
         <div className="row">

@@ -6,7 +6,7 @@ export const capNhatAnhDaiDien = (value) => {
   return async (dispatch) => {
     try {
       const result = await axios({
-        url: `${DOMAIN}/api/users/upload-avatar}`,
+        url: `${DOMAIN}/api/users/upload-avatar`,
         method: "POST",
         headers: {
           tokenByClass:
