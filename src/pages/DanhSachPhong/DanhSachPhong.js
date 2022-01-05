@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { NavLink, useLocation, useHistory } from "react-router-dom";
 import { getRoomsAction } from "../../redux/actions/DanhSachPhongActions";
+import moment from "moment";
 //thư viện antdesign
 import { HeartOutlined } from "@ant-design/icons";
 import { Pagination } from "antd";
@@ -11,63 +11,83 @@ export default function DanhSachPhong(props) {
   const { arrDanhSachPhong } = useSelector(
     (state) => state.DanhSachPhongReducer
   );
-  // const locationSearch = arrDanhSachPhong.filter((loc) => {
-  //   return loc.locationId != null;
-  // });
-  // console.log(`locationSearch`, locationSearch);
+  const getInfor = useSelector((state) => state.LayThongTinSearchReducer);
+  console.log(`getInfor`, getInfor);
+
+  const dispatch = useDispatch();
 
   const search = useLocation().search;
+  // console.log(`search`, search)
   const location = new URLSearchParams(search).get("location");
+  const guests = useLocation().state.guests;
+  const checkIn = useLocation().state.checkIn;
+  // console.log(`checkIn`, checkIn)
+  const checkOut =  useLocation().state.checkOut;
+  // console.log(`checkOut`, checkOut)
+  // const checkInDay = moment({checkIn}).format("DD/MM/YYYY");
+  // console.log(`checkInDay`, checkInDay)
+  // const checkOutDay =  moment({checkOut}).format("DD/MM/YYYY");
+  // console.log(`checkOutDay`, checkOutDay)
+  // const days = `${checkInDay} - ${checkOutDay}`;
+
+  // const days = `Ngày ${checkIn} - Ngày ${checkOut}`
+  // console.log(`days`, days)
 
   const count = arrDanhSachPhong.filter(
     (loc) => loc.locationId != null && loc.locationId.province === location
   ).length;
-  console.log(`count`, count);
-  const dispatch = useDispatch();
 
-  useEffect(async () => {
-    const action = getRoomsAction;
-    dispatch(action);
+  useEffect(() => {
+    dispatch(getRoomsAction());
   }, []);
+
+  
   const renderDanhSachPhong = () => {
     return arrDanhSachPhong
       .filter(
         (item) =>
-          item.locationId != null && item.locationId.province == location
+          item.locationId != null && item.locationId.province === location
       )
       .map((room, index) => {
         return (
           <>
             <div className="col-md-6 py-3 border-bottom" key={index}>
-              <img
-                className="w-100"
-                style={{ borderRadius: "15px" }}
-                src={room.image}
-                alt={room.name}
-              />
+              <NavLink to={`/chitietphong/${room._id}`}>
+                <img
+                  className="w-100"
+                  style={{ borderRadius: "15px" }}
+                  src={room.image}
+                  alt={room.name}
+                />
+              </NavLink>
             </div>
             <div className="row col-md-6 border-bottom">
               <div className="col-9 mt-2">
                 <div className="card-body" style={{ padding: "0.25rem 1rem" }}>
                   <h5 className="card-title">
-                    <NavLink to={`/chitietphong/${room._id}`}>{room.name}</NavLink>
+                    <NavLink to={`/chitietphong/${room._id}`}>
+                      {room.name}
+                    </NavLink>
                   </h5>
-                  <p className="card-text border-top">
+                  <NavLink
+                    to={`/chitietphong/${room._id}`}
+                    className="card-text border-top"
+                  >
                     {room.guests} khách -{room.bedRoom} giường ngủ - {room.bath}{" "}
                     phòng tắm{room.wifi ? "- Wifi" : ""}
                     {room.kitchen ? "- Bếp" : ""}
                     {room.dryer ? "- Máy sấy" : ""}
-                  </p>
+                  </NavLink>
 
                   <p
                     className="card-text font-weight-bold"
                     style={{
-                      marginLeft: "68px",
-                      marginTop: "157px",
-                      fontSize: "20px",
+                      marginLeft: "48px",
+                      marginTop: "100px",
+                      fontSize: "18px",
                     }}
                   >
-                    {room.price} $/đêm
+                    {room.price.toLocaleString()}VNĐ/đêm
                   </p>
                 </div>
               </div>
@@ -85,14 +105,14 @@ export default function DanhSachPhong(props) {
     <div>
       <div className="header_DSP mb-3">
         <div className="row justify-content-center px-5 py-3">
-          <div className="col-3">
+          <div className="col-2">
             <a className="navbar-brand" href="/">
               <div className="row mx-0 align-items-center">
                 <div>
                   <i
                     className="fab fa-airbnb"
                     style={{
-                      fontSize: "2rem",
+                      fontSize: "1.5rem",
                       color: "rgb(255, 56, 92)",
                     }}
                   ></i>
@@ -100,7 +120,7 @@ export default function DanhSachPhong(props) {
                 <div
                   className="pl-1 font-weight-normal"
                   style={{
-                    fontSize: "2rem",
+                    fontSize: "1.5rem",
                     color: "rgb(255, 56, 92)",
                   }}
                 >
@@ -109,7 +129,7 @@ export default function DanhSachPhong(props) {
               </div>
             </a>
           </div>
-          <div className=" nav_DSP col-6">
+          <div className=" nav_DSP col-8">
             <div
               className="d-flex text-center"
               style={{
@@ -117,7 +137,7 @@ export default function DanhSachPhong(props) {
                 padding: "0.5rem 0",
               }}
             >
-              <div className="col-5">
+              <div className="col-3">
                 <input
                   className="form-control text-center"
                   style={{ border: "transparent" }}
@@ -126,34 +146,36 @@ export default function DanhSachPhong(props) {
                   value={location}
                 />
               </div>
-              <div className="col-3 border-left">
+              <div className="col-6 border-left">
                 <input
                   className="form-control text-center"
                   style={{ border: "transparent" }}
                   type="text"
                   placeholder="Thêm ngày"
+                  // value={days.format("DD/MM/YYYY")}
                 />
               </div>
-              <div className="col-3 border-left">
+              <div className="col-2 border-left">
                 <input
                   className="form-control text-center"
                   style={{ border: "transparent" }}
                   type="text"
                   placeholder="Thêm khách"
+                  value={guests} 
                 />
               </div>
               <div className="col-1">
                 <div
                   className
                   style={{
-                    width: "32px",
-                    height: "32px",
+                    width: "40px",
+                    height: "40px",
                     borderRadius: "50px",
                     backgroundColor: "#FF385C",
                     textAlign: "center",
                     color: "white",
-                    lineHeight: "32px",
-                    marginLeft: "-5px",
+                    lineHeight: "40px",
+                    marginLeft: "19px",
                     cursor: "pointer",
                   }}
                 >
@@ -162,9 +184,8 @@ export default function DanhSachPhong(props) {
               </div>
             </div>
           </div>
-          <div className="d-flex align-items-center justify-content-around col-3">
-            <div>Trở thành chủ nhà</div>
-            <div className="mx-4">
+          <div className="d-flex align-items-center justify-content-around col-2">
+            <div>
               <i class="fa fa-globe"></i>
             </div>
             <div>
@@ -183,11 +204,6 @@ export default function DanhSachPhong(props) {
           <div className="container">
             <div className="card mb-3 border-0">
               <div className="row no-gutters">{renderDanhSachPhong()}</div>
-              <Pagination
-                className="text-center mt-4"
-                defaultCurrent={1}
-                total={50}
-              />
             </div>
           </div>
         </div>

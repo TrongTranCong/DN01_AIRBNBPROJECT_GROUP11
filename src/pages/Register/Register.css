@@ -1,0 +1,201 @@
+.register {
+    /* background: rgb(204, 226, 226) !important; */
+    background: #e0eafc; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #e0eafc,
+      #cfdef3
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #e0eafc, #cfdef3);
+  }
+  .register img {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .register-logo {
+    padding: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(255, 56, 92);
+  }
+  .form-register {
+    width: 86%;
+    margin: 0 auto;
+  }
+  
+  .register .content {
+    background: white;
+    border-radius: 30px;
+    box-shadow: 12px 12px 22px;
+  }
+  
+  .register-col1,
+  .register-col2,
+  .register-col3 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    justify-content: space-between;
+  }
+  
+  .title-register {
+    margin: 5px 0 15px 0;
+    font-weight: 700;
+  }
+  
+  /* //// */
+  .form-register .input-register {
+    position: relative;
+    height: 50px;
+    width: 47%;
+    border: none;
+    outline: none;
+    margin-bottom: 14px;
+    border-radius: 60px;
+    padding-left: 20px;
+    box-shadow: -1px 1px 30px -11px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: -1px 1px 30px -11px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -1px 1px 30px -11px rgba(0, 0, 0, 0.75);
+    font-size: 17px;
+  }
+  
+  .form-register .input-register:focus {
+    border: 2px solid rgb(29, 155, 240);
+  }
+  
+  .input-register::placeholder {
+    font-size: 17px;
+    transition: 0.3s ease;
+  }
+  .input-register:focus::placeholder {
+    position: absolute;
+    font-size: 12px;
+    color: rgb(29, 155, 240);
+    transform: translateY(-2px);
+  }
+  /* 
+  input[class="input-register"] {
+    position: relative;
+    font-size: 17px;
+    color: red;
+  }
+  input[class="input-register"]::placeholder {
+    font-size: 17px;
+    transition: 0.3s ease;
+  }
+  input[class="input-register"]:focus::placeholder {
+    position: absolute;
+    font-size: 12px;
+    color: rgb(29, 155, 240);
+    transform: translateY(-2px);
+  } */
+  
+  .button-register {
+    background: #dc3545;
+    /* background: rgb(255, 56, 92); */
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    border: 2px solid #dc3545;
+    outline: none;
+    border-radius: 60px;
+    width: 60%;
+  }
+  
+  .button-register:active {
+    background: #d3737c;
+    transform: scale(0.995);
+  }
+  
+  .form-register .option {
+    color: #5a5a5a;
+    margin: 15px 0;
+    font-weight: bold;
+    position: relative;
+  }
+  
+  .form-register .option:before {
+    position: absolute;
+    content: "";
+    width: 37%;
+    height: 2px;
+    background: #b6b6b6;
+    left: 0;
+    top: 50%;
+    transform: scaleY(-50%);
+    border-radius: 50px;
+  }
+  .form-register .option:after {
+    position: absolute;
+    content: "";
+    width: 37%;
+    height: 2px;
+    background: #b6b6b6;
+    right: 0;
+    top: 50%;
+    transform: scaleY(-50%);
+    border-radius: 50px;
+  }
+  
+  .alreadyacc {
+    position: relative;
+    border: 1px solid #b6b6b6;
+    border-radius: 2px;
+    width: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 25px 0;
+    padding: 10px 0;
+  }
+  .alreadyacc .haveacc {
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  .loginlink {
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: 17px;
+    color: rgb(0, 85, 170);
+  }
+  
+  .loginlink:hover {
+    color: #dc3545;
+  }
+  /* /////  */
+  /* reponsive  */
+  @media screen and (max-width: 1200px) {
+    .form-register {
+      width: 88%;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .form-register {
+      /* flex: 1 0 47%; */
+      width: 65%;
+    }
+    .register-col1,
+    .register-col2,
+    .register-col3 {
+      margin: 0;
+    }
+  
+    .form-register .input-register {
+      margin-bottom: 20px;
+    }
+    .button-register {
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 992px) {
+    .register img {
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+  }

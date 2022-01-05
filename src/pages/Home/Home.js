@@ -5,7 +5,7 @@ import Header from "../../templates/HomeTemplate/Layout/Header/Header";
 export default function Home(props) {
   return (
     <Fragment>
-      <Header />
+      <Header/>
       <HomeCarousel />
       <div className="bg-dark">
         <h3 className="text-light text-center">
