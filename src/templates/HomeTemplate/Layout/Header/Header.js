@@ -28,8 +28,6 @@ export default function Header(props) {
     dispatch(getLocationAction());
   }, []);
 
-  
-
   const handleChange = (e) => {
     let inputVal = e.target.value.trim();
     let suggest = [];
@@ -63,7 +61,7 @@ export default function Header(props) {
       checkOut: "",
       guests: "",
     });
-    history.push(`/danhsachphong?location=${location}`,searchInfo);
+    history.push(`/danhsachphong?location=${location}`, searchInfo);
   };
   //Sticky menu
   // useEffect(() => {
@@ -91,11 +89,12 @@ export default function Header(props) {
     };
   });
   const handleOnScroll = (e) => {
-    const searchMain = document.querySelector(".search-blog");
-    const navbar = document.querySelector("nav");
-    const winScroll = window.scrollY;
+    // let searchMain = document.querySelector("form");
+    let navbar = document.querySelector("nav");
+    let winScroll = window.scrollY;
+
     if (winScroll >= 100) {
-      scroll && setScroll(false) && { searchMain, navbar }.hide();
+      scroll && setScroll(false) && { navbar }.hide() ;
     } else {
       setScroll(true);
     }

@@ -30,9 +30,12 @@ export default function ThongTinPhong(props) {
   );
   // console.log(`arrDanhSachPhongDefault`, arrDanhSachPhongDefault);
 
+  
   useEffect(() => {
     dispatch(getRoomsAction());
-  }, []);
+  },[dispatch]);
+  
+  
 
   // const history=useHistory();
   const renderDanhSachPhong = () => {

@@ -31,13 +31,14 @@ export const getDetailRoomsAction = (maPhong) => {
   };
 };
 //Thêm phòng
-export const addRoomsAction = (values) => {
+export const addRoomsAction = (formData) => {
   return async (dispatch) => {
     try {
-      let result = await http.post(`/api/rooms`, values);
+      let result = await http.post(`/api/rooms`, formData);
       alert("Thêm phòng thành công");
       console.log(`result`, result.data);
-      // history.push("/thongtinphong",values);
+      // dispatch(getRoomsAction())
+      history.push("/thongtinphong",formData);
     } catch (errors) {
       console.log(`errors`, errors.res?.data);
     }
@@ -62,7 +63,7 @@ export const updateRoomAction = (formData) => {
     try {
       let result = await http.post(`/api/rooms/`, formData);
       alert("Cập nhật phòng thành công");
-      dispatch(getRoomsAction());
+      // dispatch(getRoomsAction());
       history.push("/thongtinphong", formData);
     } catch (errors) {
       console.log(`errors`, errors.res?.data);

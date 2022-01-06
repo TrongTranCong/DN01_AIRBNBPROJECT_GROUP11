@@ -28,7 +28,7 @@ export default function ChiTietPhong(props) {
     // console.log(`maPhong`, maPhong)
     const action = getDetailRoomsAction(maPhong);
     dispatch(action);
-  }, []);
+  }, [dispatch,props.match.params.id]);
   //useHistory
   const history = useHistory();
   // console.log(`history`, history)
@@ -192,20 +192,20 @@ export default function ChiTietPhong(props) {
             </Card>
           </div>
           <div className="col-4 mt-4">
-            <div className="card">
+            <div className="card" >
               <div className="card-body">
                 <p style={{ fontWeight: "bolder" }}>
                   {chiTietPhong?.price?.toLocaleString()} VNĐ/đêm
                 </p>
 
-                <form onSubmit={handleOnSubmit}>
+                <form style={{width:300}} onSubmit={handleOnSubmit}>
                   <div className="form-row">
                     <div className="form-group col-md-6">
                       <label htmlFor="inputNhanPhong">Nhận phòng</label>
                       <input
                         type="date"
                         className="form-control"
-                        style={{ fontSize: 14 }}
+                        style={{ fontSize: 12 }}
                         id="inputNhanPhong"
                         value={searchInfo.checkIn}
                         // onChange={handleChangeNhanPhong}
@@ -216,7 +216,7 @@ export default function ChiTietPhong(props) {
                       <input
                         type="date"
                         className="form-control"
-                        style={{ fontSize: 14 }}
+                        style={{ fontSize: 12 }}
                         id="inputTraPhong"
                         // value={inputTraPhong}
                         // onChange={handleChangeTraPhong}
@@ -358,8 +358,8 @@ export default function ChiTietPhong(props) {
                     type="submit"
                     className="btn btn-danger"
                     style={{
-                      paddingLeft: 115,
-                      paddingRight: 115,
+                      width: 285,
+                      height: 35,
                       marginTop: 15,
                     }}
                     onClick={handleClickBooking}

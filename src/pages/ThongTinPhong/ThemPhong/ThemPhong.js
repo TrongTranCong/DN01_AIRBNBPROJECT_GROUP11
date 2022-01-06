@@ -2,21 +2,36 @@ import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addRoomsAction, getDetailRoomsAction } from "../../../redux/actions/DanhSachPhongActions";
+import {
+  addRoomsAction,
+  getDetailRoomsAction,
+} from "../../../redux/actions/DanhSachPhongActions";
 import { history } from "../../../App";
 export default function ThemPhong(props) {
   const [imgSrc, setImgSrc] = useState("");
-  const  dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
       maPhong: "",
-      tenPhong: "",
-      giaPhong: "",
-      hinhAnh: {},
-      viTri: "",
+      name: "",
       guests: "",
-      giaPhong: "",
+      bedRoom: 2,
+      bath: 2,
+      description: "",
+      price: "",
+      elevator: false,
+      hotTub: true,
+      pool: true,
+      indoorFireplace: false,
+      dryer: true,
+      gym: false,
+      kitchen: true,
+      wifi: true,
+      heaating: true,
+      cableTV: true,
+      // hinhAnh: {},
+      locationId: null,
     },
     onSubmit: (values) => {
       console.log(`values`, values);
@@ -34,7 +49,6 @@ export default function ThemPhong(props) {
       //Gọi api gửi các giá trị của formData về backend xử lý
       const action = addRoomsAction(formData);
       dispatch(action);
-      
     },
   });
 
@@ -47,13 +61,13 @@ export default function ThemPhong(props) {
       file.type === "image/png" ||
       file.type === "image/jpg"
     ) {
-      console.log(`file`, file);
+      // console.log(`file`, file);
       //Tạo đối tượng để đọc file
       let reader = new FileReader();
       reader.readAsDataURL(file); //đọc file trả ra URL
       reader.onload = (e) => {
         //onload() bắt cái URL đó
-        console.log(`reader`, e.target.result);
+        // console.log(`reader`, e.target.result);
         setImgSrc(e.target.result);
       };
       //Đem dữ liệu lưu vào formik
@@ -73,8 +87,7 @@ export default function ThemPhong(props) {
               className="close"
               data-dismiss="modal"
               aria-label="Close"
-            >
-            </button>
+            ></button>
           </div>
           <div className="modal-body">
             <form
@@ -99,7 +112,7 @@ export default function ThemPhong(props) {
                 <div className="col-md-6 mb-3">
                   <label htmlFor="tenPhong">Tên phòng</label>
                   <input
-                    name="tenPhong"
+                    name="name"
                     type="text"
                     className="form-control"
                     placeholder="Nhập tên phòng"
@@ -112,7 +125,7 @@ export default function ThemPhong(props) {
                 <div className="col-md-6 mb-3">
                   <label htmlFor="giaPhong">Giá phòng</label>
                   <input
-                    name="giaPhong"
+                    name="price"
                     type="text"
                     className="form-control"
                     placeholder="Nhập giá"
@@ -136,7 +149,7 @@ export default function ThemPhong(props) {
                 <div className="col-md-6 mb-3">
                   <label htmlFor="viTri">Vị trí</label>
                   <input
-                    name="viTri"
+                    name="locationId"
                     type="text"
                     className="form-control"
                     placeholder="Nhập vị trí"
@@ -168,6 +181,7 @@ export default function ThemPhong(props) {
               <div className="mb-3">
                 <label htmlFor="moTa">Mô Tả</label>
                 <textarea
+                  name="description"
                   className="form-control"
                   id="moTa"
                   rows={3}
@@ -176,7 +190,6 @@ export default function ThemPhong(props) {
                 <div id="invalidMoTa" className="invalid-form"></div>
               </div>
               <div className="modal-footer">
-                
                 <button
                   type="submit"
                   className="btn btn-warning"
@@ -184,7 +197,6 @@ export default function ThemPhong(props) {
                 >
                   Thêm
                 </button>
-                
               </div>
             </form>
           </div>
