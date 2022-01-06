@@ -63,7 +63,7 @@ export const updateRoomAction = (formData) => {
     try {
       let result = await http.post(`/api/rooms/`, formData);
       alert("Cập nhật phòng thành công");
-      // dispatch(getRoomsAction());
+      dispatch(getRoomsAction());
       history.push("/thongtinphong", formData);
     } catch (errors) {
       console.log(`errors`, errors.res?.data);

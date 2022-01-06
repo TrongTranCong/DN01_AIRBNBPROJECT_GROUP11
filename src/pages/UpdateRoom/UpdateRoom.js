@@ -14,6 +14,7 @@ export default function UpdateRoom(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     let { id } = props.match.params;
+    
     //Call Api
     dispatch(getInfoRoomAction(id));
   }, [dispatch,props.match.params]);
