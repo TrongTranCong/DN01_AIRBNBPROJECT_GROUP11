@@ -31,9 +31,9 @@ export const DangNhapAction = ({ values, callback }) => {
       // cách 2 truyền callback
       // lib tên chi mà mình quên rồi, config hơi cực
       // mình chỉ cách truyền call back hỉ
-      console.log(result);
+      // console.log(result);
     } catch (errors) {
-      console.log(errors.response.data.message);
+      // console.log(errors.response.data.message);
     }
     return dispatch;
   };

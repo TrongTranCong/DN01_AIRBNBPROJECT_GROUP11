@@ -7,9 +7,13 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { DangKyAction } from "../../redux/actions/UserRegisterAction";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { DOMAIN } from "../../util/setting";
 
 export default function Register() {
   const dispatch = useDispatch();
+  const [successMsg, setSuccessMsg] = useState("");
   const history = useHistory();
 
   const formik = useFormik({
@@ -43,9 +47,51 @@ export default function Register() {
       birthday: Yup.string().required("Vui lòng điền vào trường này"),
       address: Yup.string().required("Vui lòng điền vào trường này"),
     }),
-    onSubmit: (values) => {
-      dispatch(DangKyAction(values));
-      // console.log(values.type);
+    onSubmit: async (values) => {
+      // dispatch(DangKyAction(values));
+      // // console.log(values.type);
+      // return window.location.reload();
+      try {
+        const response = await axios({
+          url: `${DOMAIN}/api/auth/register`,
+          method: "POST",
+          headers: {
+            tokenByClass:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCDEkMOgIE7hurVuZyAwMSIsIkhldEhhblN0cmluZyI6IjMwLzA2LzIwMjIiLCJIZXRIYW5UaW1lIjoiMTY1NjU0NzIwMDAwMCIsIm5iZiI6MTYyMDkyNTIwMCwiZXhwIjoxNjU2Njk0ODAwfQ.6o2C_IS8e7HlB9dUZ9eFRYOb2ST9LjIIbn4fO_SS1Qc",
+          },
+          data: values,
+        });
+        // console.log(response.data);
+        dispatch(DangKyAction(values));
+
+        // resetForm({
+        //   values: {
+        //     name: "",
+        //     email: "",
+        //     password: "",
+        //     phone: "",
+        //     birthday: "",
+        //     gender: true,
+        //     address: "",
+        //     type: "CLIENT",
+        //   },
+        // });
+        setSuccessMsg("Đăng ký thành công");
+        document.getElementById("form-register").reset();
+        formik.resetForm({
+          name: "",
+          email: "",
+          password: "",
+          phone: "",
+          birthday: "",
+          gender: true,
+          address: "",
+          type: "CLIENT",
+        });
+        // return window.location.reload();
+      } catch (error) {
+        alert(error);
+      }
     },
   });
   const handleCloseRegister = () => {
@@ -54,6 +100,7 @@ export default function Register() {
   return (
     <div className="register py-3 bg-light">
       {/* <div className="vh"> */}
+
       <div className="container vh-register">
         <div className="row content no-gutters">
           <div className="col-lg-5 register-col-left">
@@ -81,7 +128,11 @@ export default function Register() {
                 </div>
               </div>
               <h3 className="title-register">Đăng kí tài khoản airbnb</h3>
-              <form className="form-register" onSubmit={formik.handleSubmit}>
+              <form
+                className="form-register"
+                id="form-register"
+                onSubmit={formik.handleSubmit}
+              >
                 <div className="user-details">
                   <div
                     className={
@@ -265,20 +316,31 @@ export default function Register() {
                     </label>
                   </div>
                 </div>
+                {successMsg !== "" && (
+                  <div
+                    style={{ color: "green" }}
+                    className="alert alert-success mb-4 mt-2"
+                  >
+                    <i className="fas fa-check mr-2"></i>
+                    {successMsg}
+                  </div>
+                )}
                 <button type="submit" className="button-register">
                   Đăng ký
                 </button>
+
                 <div className="option">Hoặc</div>
               </form>
+
               <div className="fblink">
                 <p className="loginwith">Đăng ký với</p>
-                <a href="">
+                <a href="https://www.facebook.com/">
                   <i className="fab fa-facebook"></i>
                 </a>
-                <a href="">
+                <a href="https://www.google.com/">
                   <i className="fab fa-google"></i>
                 </a>
-                <a href="">
+                <a href="https://www.apple.com/">
                   <i className="fab fa-apple"></i>
                 </a>
               </div>

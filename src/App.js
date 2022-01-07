@@ -10,7 +10,7 @@ import Register from "./pages/Register/Register";
 import LoginPage from "./pages/Login/LoginPage";
 import ThongTinCaNhan from "./pages/ThongTinCaNhan/ThongTinCaNhan";
 import PrivateRoute from "./auth/PrivateRoute";
-import CapNhatNguoiDung from "./pages/ThongTinCaNhan/CapNhatNguoiDung";
+// import CapNhatNguoiDung from "./pages/ThongTinCaNhan/CapNhatNguoiDung";
 import DanhSachNguoiDung from "./pages/DanhSachNguoiDung/DanhSachNguoiDung";
 import AdminRoute from "./auth/AdminRoute";
 
@@ -24,11 +24,11 @@ function App() {
         <Route exact path="/loginpage" component={LoginPage} />
 
         <PrivateRoute exact path="/user/dashboard" component={ThongTinCaNhan} />
-        <AdminRoute
+        {/* <AdminRoute
           exact
           path="/user/capnhatnguoidung"
           component={CapNhatNguoiDung}
-        />
+        /> */}
         <AdminRoute exact path="/getlistuser" component={DanhSachNguoiDung} />
       </Switch>
     </BrowserRouter>

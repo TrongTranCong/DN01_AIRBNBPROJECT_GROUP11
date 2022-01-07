@@ -11,7 +11,7 @@ import "./Modal.css";
 import "../../pages/Register/Register.css";
 
 import { capNhatNguoiDung } from "../../redux/actions/CapNhatNguoiDungAction";
-import { isAuthenticated } from "../../auth/index";
+// import { isAuthenticated } from "../../auth/index";
 import { XoaNguoiDung } from "../../redux/actions/XoaNguoiDungAction";
 import { Header } from "antd/lib/layout/layout";
 import { themNguoiDung } from "../../redux/actions/ThemNguoiDungAction";
@@ -55,7 +55,7 @@ export default function DanhSachNguoiDung() {
         : event.target.value;
     setValues({ ...values, [name]: value, error: "" });
   };
-  const isValid = () => {
+  const isValid = (number) => {
     let patternName =
       new RegExp(`^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" +
         "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" +
@@ -100,12 +100,15 @@ export default function DanhSachNguoiDung() {
       });
       return false;
     }
-    if (!patternPass.test(password.trim())) {
-      setValues({
-        ...values,
-        error: "Mật khẩu tối thiểu 6 ký tự, ít nhất một chữ cái và một số",
-      });
-      return false;
+
+    if (number === -1) {
+      if (!patternPass.test(password.trim())) {
+        setValues({
+          ...values,
+          error: "Mật khẩu tối thiểu 6 ký tự, ít nhất một chữ cái và một số",
+        });
+        return false;
+      }
     }
 
     return true;
@@ -113,7 +116,7 @@ export default function DanhSachNguoiDung() {
 
   const handleSubmit = (event, number) => {
     event.preventDefault();
-    if (isValid()) {
+    if (isValid(number)) {
       if (number === -1) {
         // console.log("dang ky");
         const action = themNguoiDung(values);
@@ -140,19 +143,17 @@ export default function DanhSachNguoiDung() {
   };
 
   const deleteConfirmed = (index) => {
-    let answer = window.confirm("Are you sure you want to delete this user?");
+    let answer = window.confirm("Bạn chắc chắn muốn xóa người dùng ?");
     if (answer) {
       dispatch(XoaNguoiDung(listUser[index]._id));
     }
   };
 
-  const searchUser = () => {};
-
   useEffect(() => {
     const action = getListUser();
     dispatch(action);
   }, [dispatch]);
-  console.log(gender);
+  // console.log(gender);
 
   useEffect(() => {
     // if (index >= 0) {

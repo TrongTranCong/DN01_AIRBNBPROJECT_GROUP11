@@ -1,26 +1,28 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Header from "../../templates/HomeTemplate/Layout/Header/Header";
 import { isAuthenticated } from "../../auth/index";
 import moment from "moment";
 import Footer from "../../templates/HomeTemplate/Layout/Footer/Footer";
 import { NavLink } from "react-router-dom";
 import DefaultAvatar from "../../assets/avatar.jpg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { capNhatAnhDaiDien } from "../../redux/actions/CapNhatAnhDaiDienAction";
+import { thongTinChiTiet } from "../../redux/actions/ThongTinChiTietNguoiDung";
+// import { ChiTietThongTinNguoiDungReducer } from "../../redux/reducers/ChiTietThongTinNguoiDungReducer";
 
 export default function ThongTinCaNhan() {
-  const [newAvt, setNewAvt] = useState("");
   //   user: { _id, name, email, role, dob, address, phoneNumber },
   // } = isAuthenticated();
+  // const [user, setUser] = useState({});
+  const { user } = useSelector(
+    (state) => state.ChiTietThongTinNguoiDungReducer
+  );
+  // console.log(user);
 
   const [values, setValues] = useState({
-    photo: "",
     formData: new FormData(),
   });
 
-  const { photo, formData } = values;
-
-  const dispatch = useDispatch();
   const {
     name,
     email,
@@ -31,19 +33,22 @@ export default function ThongTinCaNhan() {
     address,
     type,
     avatar,
-  } = isAuthenticated();
+  } = user;
 
-  // console.log(name, email, password, phone, birthday, gender, address, type);
-  // console.log(isAuthenticated());
+  const { formData } = values;
+
+  const dispatch = useDispatch();
+  const { _id } = isAuthenticated();
+  // console.log(isAuthenticated()._id);
 
   const handleChange = (name) => (event) => {
-    const value = name === "photo" ? event.target.files[0] : event.target.value;
+    const value =
+      name === "avatar" ? event.target.files[0] : event.target.value;
     formData.set(name, value);
   };
 
   const clickSubmit = (event) => {
     event.preventDefault();
-    // console.log(formData.get(photo));
     dispatch(capNhatAnhDaiDien(formData));
   };
 
@@ -94,6 +99,30 @@ export default function ThongTinCaNhan() {
       </div>
     );
   };
+  useEffect(() => {
+    const action = thongTinChiTiet(_id);
+    dispatch(action);
+    // console.log(infoUser);
+  }, [dispatch]);
+
+  // const loadProfile = (userId) => {
+  //   read(userId).then((data) => {
+  //     if (data.error) {
+  //       console.log(data.error);
+  //     } else {
+  //       // console.log(data);
+  //       setUser(data);
+  //     }
+  //   });
+  // };
+
+  // useEffect(
+  //   () => {
+  //     loadProfile(_id);
+  //   },
+  //   // eslint-disable-next-line
+  //   []
+  // );
 
   const userAvatar = () => {
     const photoUrl = avatar && avatar.length !== 0 ? avatar : DefaultAvatar;
@@ -112,20 +141,15 @@ export default function ThongTinCaNhan() {
           <div className="form-group">
             <label className="btn btn-secondary">
               <input
-                onChange={handleChange(photo)}
+                onChange={handleChange("avatar")}
                 type="file"
-                name="photo"
+                name="avatar"
                 accept="image/*"
               />
             </label>
           </div>
 
-          <button
-            type="submit"
-            // className="nav-link"
-          >
-            Cập nhật ảnh đại diện
-          </button>
+          <button type="submit">Cập nhật ảnh đại diện</button>
         </form>
       </div>
     );

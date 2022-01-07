@@ -4,8 +4,8 @@ import loginImage from "../../assets/login-image.jpg";
 import { useHistory } from "react-router";
 import { useFormik } from "formik";
 import { DangNhapAction } from "../../redux/actions/UserLoginAction";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import * as Yup from "yup";
 
 import axios from "axios";
@@ -29,10 +29,10 @@ export default function LoginPage(props) {
         .matches(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, "Email không đúng định dạng"),
       password: Yup.string()
         .required("Vui lòng điền vào trường này")
-        // .matches(
-        //   /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-        //   "Tối thiểu 6 ký tự, ít nhất một chữ cái và một số"
-        // )
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+          "Tối thiểu 6 ký tự, ít nhất một chữ cái và một số"
+        )
         .max(10, "Mật khẩu tối đa không quá 10 ký tự"),
     }),
     onSubmit: async (values) => {
@@ -148,7 +148,7 @@ export default function LoginPage(props) {
                     style={{ color: "red" }}
                     className="error-message mb-4 mt-2"
                   >
-                    <i class="far fa-times-circle mr-2"></i>
+                    <i className="far fa-times-circle mr-2"></i>
                     {errMsg}
                   </div>
                 )}
@@ -163,13 +163,13 @@ export default function LoginPage(props) {
               </form>
               <div className="fblink">
                 <p className="loginwith">Đăng nhập với</p>
-                <a href="">
+                <a href="https://facebook.com">
                   <i className="fab fa-facebook"></i>
                 </a>
-                <a href="">
+                <a href="https://google.com">
                   <i className="fab fa-google"></i>
                 </a>
-                <a href="">
+                <a href="https://apple.com">
                   <i className="fab fa-apple"></i>
                 </a>
               </div>
