@@ -32,7 +32,7 @@ export default function ChiTietPhong(props) {
             </div>
             <div className="row">
               <div className="col-6">
-                <img className="img-fluid" src={item.image} />
+       pu         <img className="img-fluid" src={item.image} />
               </div>
               <div className="col-6">
                 <img className="img-fluid" src={item.image} />
