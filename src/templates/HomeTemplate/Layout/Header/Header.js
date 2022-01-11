@@ -5,19 +5,52 @@ import { useEffect, useState } from "react";
 import { getLocationAction } from "../../../../redux/actions/QuanLyViTriActions";
 import { isAuthenticated, signout } from "../../../../auth";
 import { history } from "../../../../App";
-
+//antd
+import { DatePicker, Space } from "antd";
+import moment from "moment";
+import { useFormik } from "formik";
 export default function Header(props) {
   const { arrLocations } = useSelector((state) => state.QuanLyViTriReducer);
   // console.log(`arrLocations`, arrLocations)
-  const [searchInfo, setSearchInfo] = useState({
-    checkIn: "",
-    checkOut: "",
-    guests: "",
+  //lấy thông tin users
+  const formik = useFormik({
+    initialValues: {
+      location: "",
+      checkIn: "",
+      checkOut: "",
+      guests: "",
+    },
+    onSubmit: (values) => {
+      console.log(`values`, values);
+    }
   });
 
-  const handleChangeSearch = (e) => {
-    let { name, value } = e.target;
-    setSearchInfo({ ...searchInfo, [name]: value });
+  const handleClickSearch = () => {
+    if (location === "") {
+      alert("Vui lòng chọn địa điểm");
+      return false;
+    }
+    //gửi lên reducer
+    const action = {
+      type: "GET_INFO_SEARCH",
+      payload: formik.values,
+    };
+    // console.log(`action`, action)
+    dispatch(action);
+    history.push(`/danhsachphong?location=${location}`, formik.values);
+  };
+
+  const handleChangeDateIn = (date) => {
+    let checkIn = moment(date).format("DD/MM/YYYY");
+    console.log(`checkIn`, checkIn);
+    //fill value vào formik
+    formik.setFieldValue("checkIn", checkIn);
+  };
+  const handleChangeDateOut = (date) => {
+    let checkOut = moment(date).format("DD/MM/YYYY");
+    console.log(`checkOut`, checkOut);
+    //fill value vào formik
+    formik.setFieldValue("checkOut", checkOut);
   };
 
   const [location, setLocation] = useState("");
@@ -26,7 +59,7 @@ export default function Header(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getLocationAction());
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (e) => {
     let inputVal = e.target.value.trim();
@@ -43,26 +76,12 @@ export default function Header(props) {
   const handleSuggest = (location) => {
     setLocation(location);
     setSuggestions([]);
+    formik.setFieldValue("location", location);
   };
   const history = useHistory();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (location == "") {
-      alert("Vui lòng chọn địa điểm");
-      return false;
-    }
-    const action = {
-      type: "GET_INFO_SEARCH",
-      searchInfo,
-    };
-    dispatch(action);
-    setSearchInfo({
-      checkIn: "",
-      checkOut: "",
-      guests: "",
-    });
-    history.push(`/danhsachphong?location=${location}`, searchInfo);
-  };
+
+  //   // history.push(`/danhsachphong?location=${location}`);
+  // };
   //Sticky menu
   // useEffect(() => {
   //   window.addEventListener("scroll", isSticky);
@@ -94,7 +113,7 @@ export default function Header(props) {
     let winScroll = window.scrollY;
 
     if (winScroll >= 100) {
-      scroll && setScroll(false) && { navbar }.hide() ;
+      scroll && setScroll(false) && { navbar }.hide();
     } else {
       setScroll(true);
     }
@@ -147,12 +166,74 @@ export default function Header(props) {
                   Trải nghiệm trực tuyến
                 </a>
               </li>
+
+              <li>
+                <div className=" dropdown active  ">
+                  <a
+                    className="nav-link"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <div
+                      className="row align-content-center login"
+                      style={{ borderRadius: "1.25rem" }}
+                    >
+                      {isAuthenticated() ? (
+                        <div>
+                          <img
+                            style={({ height: "25px" }, { width: "25px" })}
+                            src={isAuthenticated().avatar}
+                            alt=""
+                          />
+                          <span>{isAuthenticated().name}</span>
+                        </div>
+                      ) : (
+                        <i className="fa fa-user-circle"></i>
+                      )}
+                    </div>
+                  </a>
+                  <div
+                    className="dropdown-menu"
+                    style={{ left: "-65px" }}
+                    aria-labelledby="navbarDropdown"
+                  >
+                    {isAuthenticated() ? (
+                      <>
+                        <NavLink className="dropdown-item" to="/user/dashboard">
+                          Thông tin cá nhân
+                        </NavLink>
+                        <NavLink
+                          className="dropdown-item"
+                          onClick={() => signout(() => {})}
+                          to="/"
+                        >
+                          Đăng xuất
+                        </NavLink>
+                      </>
+                    ) : (
+                      <>
+                        <NavLink
+                          className="dropdown-item font-weight-bold"
+                          to="/register"
+                        >
+                          Đăng ký
+                        </NavLink>
+                        <NavLink className="dropdown-item" to="/loginpage">
+                          Đăng nhập
+                        </NavLink>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </li>
             </ul>
           </div>
 
           <div className="guests d-flex align-items-center">
-            {/* <div>Đón tiếp khách</div> */}
-            <div className="mx-3">
+            {/* <div className="mx-3">
               <div
                 href="#"
                 style={{
@@ -163,104 +244,34 @@ export default function Header(props) {
               >
                 <i class="fa fa-globe"></i>
               </div>
-            </div>
-
-            <div>
-              <div className=" dropdown active ">
-                <a
-                  className="nav-link"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <div
-                    className="row align-content-center login"
-                    style={{ borderRadius: "1.25rem" }}
-                  >
-                    {isAuthenticated() ? (
-                      <div>
-                        <img
-                          style={({ height: "25px" }, { width: "25px" })}
-                          src={isAuthenticated().avatar}
-                          alt=""
-                        />
-                        <span>{isAuthenticated().name}</span>
-                      </div>
-                    ) : (
-                      <i className="fa fa-user-circle"></i>
-                    )}
-                  </div>
-                </a>
-                <div
-                  className="dropdown-menu"
-                  style={{ left: "-65px" }}
-                  aria-labelledby="navbarDropdown"
-                >
-                  {isAuthenticated() ? (
-                    <>
-                      <NavLink className="dropdown-item" to="/user/dashboard">
-                        Thông tin cá nhân
-                      </NavLink>
-                      <NavLink
-                        className="dropdown-item"
-                        onClick={() => signout(() => {})}
-                        to="/"
-                      >
-                        Đăng xuất
-                      </NavLink>
-                    </>
-                  ) : (
-                    <>
-                      <NavLink
-                        className="dropdown-item font-weight-bold"
-                        to="/register"
-                      >
-                        Đăng ký
-                      </NavLink>
-                      <NavLink className="dropdown-item" to="/loginpage">
-                        Đăng nhập
-                      </NavLink>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
+            </div> */}
           </div>
         </nav>
       )}
 
       <div className="mt-2">
-        <form className="search-blog my-0 p-0" onSubmit={handleSubmit}>
+        <form className="search-blog my-0 p-0" onSubmit={formik.handleSubmit}>
           <div className="d-flex mx-0 font-weight-bold">
             <div className="col-3">
               <label className="mt-2" style={{ marginLeft: "15px" }}>
                 Địa điểm
               </label>
               <input
-                autoComplete="off"
-                type="text"
+                // autoComplete="off"
+                type="search"
                 className="form-control border-0 p-0"
                 style={{
                   width: "80%",
-                  marginTop: "-15px",
-                  marginLeft: "15px",
+                  marginTop: -7,
+                  marginLeft: 15,
+                  fontSize: 14,
                   backgroundColor: "transparent",
                 }}
-                id="location"
+                // id="location"
                 placeholder="Bạn sắp đi đâu?"
                 onChange={handleChange}
                 value={location}
               />
-              {/* <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">×</span>
-              </button> */}
 
               <div
                 className="mt-3"
@@ -298,7 +309,7 @@ export default function Header(props) {
 
             <div className="col-3 ">
               <label className="mt-2 ">Nhận phòng</label>
-              <input
+              {/* <input
                 type="date"
                 name="checkIn"
                 className="form-control border-0 p-0"
@@ -309,11 +320,26 @@ export default function Header(props) {
                 id="CheckIn"
                 onChange={handleChangeSearch}
                 // value={checkIn}
-              />
+              /> */}
+              <Space direction="vertical">
+                <DatePicker
+                  style={{
+                    paddingTop: 0,
+                    paddingRight: 11,
+                    paddingLeft: 0,
+                    paddingBottom: 4,
+                    background: 0,
+                    border: 0,
+                  }}
+                  name="checkIn"
+                  onChange={handleChangeDateIn}
+                  format="DD-MM-YYYY"
+                />
+              </Space>
             </div>
             <div className="col-3 ">
               <label className="mt-2 ">Trả phòng</label>
-              <input
+              {/* <input
                 type="date"
                 name="checkOut"
                 id="CheckOut"
@@ -321,32 +347,68 @@ export default function Header(props) {
                 style={{ width: "70%", marginTop: "-15px" }}
                 onChange={handleChangeSearch}
                 // value={checkOut}
-              />
+              /> */}
+              <Space direction="vertical">
+                <DatePicker
+                  style={{
+                    paddingTop: 0,
+                    paddingRight: 11,
+                    paddingLeft: 0,
+                    paddingBottom: 4,
+                    background: 0,
+                    border: 0,
+                  }}
+                  onChange={handleChangeDateOut}
+                  format="DD-MM-YYYY"
+                />
+              </Space>
             </div>
             <div className="col-3 ">
               <div className="row">
                 <div className="col-8">
                   <label className="mt-2">Khách</label>
                   <input
-                    type="number"
+                    type="text"
                     autoComplete="off"
                     className="form-control border-0 p-0 h-0"
-                    style={{ width: "100%", marginTop: "-15px" }}
+                    style={{ width: "100%", marginTop: -7, fontSize: 14 }}
                     name="guests"
                     placeholder="Thêm khách"
-                    onChange={handleChangeSearch}
+                    onChange={formik.handleChange}
                     // value={guests}
                   />
+                  <button className="clearInput" type="reset">
+                    &times;
+                  </button>
+                  {/* <Space>
+                    <InputNumber 
+                      style={{}}
+                      min={1}
+                      max={10}
+                      value={guests}
+                      onChange={setGuests}
+                    />
+                    <Button
+                      
+                      type="primary"
+                      onClick={() => {
+                        setGuests(2);
+                      }}
+                    >
+                      &times;
+                    </Button>
+                  </Space> */}
                 </div>
                 <div className="col-4">
                   <button
                     type="submit"
                     className="btn-danger"
+                    onClick={handleClickSearch}
                     style={{
-                      width: "50px",
-                      height: "50px",
-                      marginTop: "7px",
-                      borderRadius: "50px",
+                      width: 50,
+                      height: 50,
+                      marginTop: 7,
+                      borderRadius: 50,
                     }}
                   >
                     <div

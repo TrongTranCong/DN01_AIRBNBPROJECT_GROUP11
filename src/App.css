@@ -19,8 +19,7 @@ header {
   z-index: 10;
   background: rgba(0, 0, 0, 0.663);
 }
-.is-sticky {
-  /* position: fixed; */
+/* .is-sticky {
   top: 0;
   left: 0;
   width: 100%;
@@ -30,7 +29,7 @@ header {
   background-color: #fff;
   color: #000;
   animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
-}
+} */
 
 header .nav-item .nav-link::after {
   content: "";
@@ -56,9 +55,7 @@ header .login {
   padding: 15px;
   color: #222222;
 }
-/* .guests{
-  color:#fff;
-} */
+
 .search-blog {
   border: 1px solid rgb(221, 221, 221);
   height: 65px;
@@ -67,6 +64,42 @@ header .login {
   border-radius: 2.5rem;
   background-color: #fff;
 }
+
+
+form{
+  position: relative;
+}
+
+form input {
+  width: 100%;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+form input:placeholder-shown + button{
+opacity: 0;
+pointer-events: none;
+} 
+
+form .clearInput {
+  position: absolute;
+  border: none;
+  display: block;
+  /* width: 15px;
+  height: 15px; */
+  line-height: 16px;
+  font-size: 20px;
+  border-radius: 50%;
+  top: 25px;
+  bottom: 0;
+  right: 15px;
+  margin: auto;
+  background: transparent;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
+  transition: .1s;
+} 
 
 .btn_DSP {
   width: 50px;

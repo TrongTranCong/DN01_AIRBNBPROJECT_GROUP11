@@ -12,6 +12,7 @@ export default function LoginPage(props) {
   const history = useHistory();
 
   const formik = useFormik({
+
     initialValues: {
       email: "",
       password: "",

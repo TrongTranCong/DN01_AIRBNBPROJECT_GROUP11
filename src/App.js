@@ -19,6 +19,7 @@ import ThongTinPhong from "./pages/ThongTinPhong/ThongTinPhong";
 import ThemPhong from "./pages/ThongTinPhong/ThemPhong/ThemPhong";
 import UpdateRoom from "./pages/UpdateRoom/UpdateRoom";
 import { createBrowserHistory } from "history";
+import Complete from "./components/AutoComplete/AutoComplete";
 
 export const history = createBrowserHistory();
 
@@ -37,6 +38,7 @@ function App() {
           component={Dashboard}
         /> */}
         <Route exact path="/thanhtoan" component={Payment} />
+        {/* <Route exact path="/autocomplete" component={Complete} /> */}
         <PrivateRoute exact path="/user/dashboard" component={ThongTinCaNhan} />
         <PrivateRoute
           exact

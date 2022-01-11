@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useHistory } from "react-router-dom";
 import { getRoomsAction } from "../../redux/actions/DanhSachPhongActions";
-import moment from "moment";
+import { useFormik } from "formik";
+
 //thư viện antdesign
 import { HeartOutlined } from "@ant-design/icons";
 import { Pagination } from "antd";
@@ -11,37 +12,23 @@ export default function DanhSachPhong(props) {
   const { arrDanhSachPhong } = useSelector(
     (state) => state.DanhSachPhongReducer
   );
-  const getInfor = useSelector((state) => state.LayThongTinSearchReducer);
-  console.log(`getInfor`, getInfor);
+  const { getInfo } = useSelector((state) => state.QuanLyViTriReducer);
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getRoomsAction());
+  }, [dispatch]);
+
   const search = useLocation().search;
-  // console.log(`search`, search)
   const location = new URLSearchParams(search).get("location");
-  const guests = useLocation().state.guests;
-  const checkIn = useLocation().state.checkIn;
-  // console.log(`checkIn`, checkIn)
-  const checkOut =  useLocation().state.checkOut;
-  // console.log(`checkOut`, checkOut)
-  // const checkInDay = moment({checkIn}).format("DD/MM/YYYY");
-  // console.log(`checkInDay`, checkInDay)
-  // const checkOutDay =  moment({checkOut}).format("DD/MM/YYYY");
-  // console.log(`checkOutDay`, checkOutDay)
-  // const days = `${checkInDay} - ${checkOutDay}`;
 
-  // const days = `Ngày ${checkIn} - Ngày ${checkOut}`
-  // console.log(`days`, days)
-
+  const days = `Ngày ${getInfo.checkIn} - Ngày ${getInfo.checkOut}`;
+  const guest = `${getInfo.guests} khách`;
   const count = arrDanhSachPhong.filter(
     (loc) => loc.locationId != null && loc.locationId.province === location
   ).length;
 
-  useEffect(() => {
-    dispatch(getRoomsAction());
-  }, []);
-
-  
   const renderDanhSachPhong = () => {
     return arrDanhSachPhong
       .filter(
@@ -152,7 +139,7 @@ export default function DanhSachPhong(props) {
                   style={{ border: "transparent" }}
                   type="text"
                   placeholder="Thêm ngày"
-                  // value={days.format("DD/MM/YYYY")}
+                  value={days}
                 />
               </div>
               <div className="col-2 border-left">
@@ -161,7 +148,7 @@ export default function DanhSachPhong(props) {
                   style={{ border: "transparent" }}
                   type="text"
                   placeholder="Thêm khách"
-                  value={guests} 
+                  value={guest}
                 />
               </div>
               <div className="col-1">
@@ -185,9 +172,6 @@ export default function DanhSachPhong(props) {
             </div>
           </div>
           <div className="d-flex align-items-center justify-content-around col-2">
-            <div>
-              <i class="fa fa-globe"></i>
-            </div>
             <div>
               <i className="fa fa-bars mx-3"></i>
               <i className="fa fa-user-circle"></i>

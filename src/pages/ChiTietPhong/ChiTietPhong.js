@@ -1,58 +1,56 @@
 import React, { Fragment, useState } from "react";
-import { StarOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getDetailRoomsAction } from "../../redux/actions/DanhSachPhongActions";
 import Header from "../../templates/HomeTemplate/Layout/Header/Header";
 import { useHistory, useLocation } from "react-router-dom";
+
 //thư viện antdesign
 import { Avatar } from "antd";
-import { UserOutlined, DownOutlined } from "@ant-design/icons";
+import { DatePicker, Space } from "antd";
+import moment from "moment";
 import { Rate, Card, Menu, Dropdown } from "antd";
+import { useFormik } from "formik";
 
 export default function ChiTietPhong(props) {
   const { chiTietPhong } = useSelector((state) => state.DanhSachPhongReducer);
-  console.log(`chiTietPhong`, chiTietPhong);
-  // const {getInfor} = useSelector((state) => state.LayThongTinSearchReducer);
-  const {searchInfo}=useSelector(state=>state.QuanLyViTriReducer);
-  // console.log(`getInfor`, searchInfo);
-
-  // let checkInDay = getInfor.map((item) => item.checkIn);
-  // let checkOutDay = getInfor.map((item) => item.checkOut);
-  // console.log(`checkInDay`, checkInDay);
-  // console.log(`checkInDay`, checkInDay);
+  // console.log(`chiTietPhong`, chiTietPhong);
+  const [checkRoom, setCheckRoom] = useState({
+    checkIn: "",
+    checkOut: "",
+  });
 
   const dispatch = useDispatch();
   useEffect(() => {
     let maPhong = props.match.params.id;
-    // console.log(`maPhong`, maPhong)
     const action = getDetailRoomsAction(maPhong);
     dispatch(action);
-  }, [dispatch,props.match.params.id]);
-  //useHistory
-  const history = useHistory();
-  // console.log(`history`, history)
-  //useLocation
-  const state = useLocation().state;
-  const [inputNhanPhong, setNhanPhong] = useState("");
-  const handleChangeNhanPhong = (e) => setNhanPhong(e.target.value);
+  }, [dispatch, props.match.params.id]);
 
-  let checkRoomIn = `Ngày ${new Date(inputNhanPhong).getDate()}`;
-
-  const [inputTraPhong, setTraPhong] = useState("");
-  const handleChangeTraPhong = (e) => setTraPhong(e.target.value);
-
-  let checkRoomOut = `Ngày ${new Date(
-    inputTraPhong
-  ).getDate()} tháng ${new Date(inputTraPhong).getMonth()}`;
+  const handleChange = (e) => {
+    let { name, value } = e.target;
+    setCheckRoom({
+      ...checkRoom,
+      [name]: value,
+    });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  
+  let checkIn = checkRoom.checkIn;
+  let checkRoomIn = `Ngày ${new Date(checkRoom.checkIn).getDate()}`;
+  console.log(`checkRoomIn`, checkRoomIn);
+  let checkOut = checkRoom.checkOut;
+  let checkRoomOut = `Ngày ${new Date(checkRoom.checkOut).getDate()}`;
+  console.log(`checkRoomOut`, checkRoomOut);
   let checkRoomDays = `${checkRoomIn} - ${checkRoomOut}`;
   let days =
-    (new Date(inputTraPhong).getTime() - new Date(inputNhanPhong).getTime()) /
+    (new Date(checkOut).getTime() - new Date(checkIn).getTime()) /
     (1000 * 3600 * 24);
+  console.log(`days`, days);
   let money = `${chiTietPhong?.price}` * days;
-  const handleOnSubmit = (e) => {
-    e.preventDefaut();
-  };
+  console.log(`money`, money);
 
   const [adults, setAdults] = useState(2);
   const [childs, setChilds] = useState(0);
@@ -69,7 +67,7 @@ export default function ChiTietPhong(props) {
       infants,
       days,
       money,
-      {chiTietPhong},
+      { chiTietPhong },
     ]);
   };
 
@@ -192,13 +190,13 @@ export default function ChiTietPhong(props) {
             </Card>
           </div>
           <div className="col-4 mt-4">
-            <div className="card" >
+            <div className="card">
               <div className="card-body">
                 <p style={{ fontWeight: "bolder" }}>
                   {chiTietPhong?.price?.toLocaleString()} VNĐ/đêm
                 </p>
 
-                <form style={{width:300}} onSubmit={handleOnSubmit}>
+                <form style={{ width: 300 }} onSubmit={handleSubmit}>
                   <div className="form-row">
                     <div className="form-group col-md-6">
                       <label htmlFor="inputNhanPhong">Nhận phòng</label>
@@ -207,9 +205,25 @@ export default function ChiTietPhong(props) {
                         className="form-control"
                         style={{ fontSize: 12 }}
                         id="inputNhanPhong"
-                        value={searchInfo.checkIn}
-                        // onChange={handleChangeNhanPhong}
+                        name="checkIn"
+                        value={checkIn}
+                        onChange={handleChange}
                       />
+                      {/* <Space direction="vertical">
+                        <DatePicker
+                          style={{
+                            paddingTop: 0,
+                            paddingRight: 11,
+                            paddingLeft: 0,
+                            paddingBottom: 4,
+                            background: 0,
+                            border: 0,
+                          }}
+                          name="checkIn"
+                          onChange={handleChangeDateIn}
+                          format="DD-MM-YYYY"
+                        />
+                      </Space> */}
                     </div>
                     <div className="form-group col-md-6">
                       <label htmlFor="inputTraPhong">Trả phòng</label>
@@ -218,10 +232,25 @@ export default function ChiTietPhong(props) {
                         className="form-control"
                         style={{ fontSize: 12 }}
                         id="inputTraPhong"
-                        // value={inputTraPhong}
-                        // onChange={handleChangeTraPhong}
-                        value={searchInfo.checkOut}
+                        name="checkOut"
+                        value={checkOut}
+                        onChange={handleChange}
                       />
+                      {/* <Space direction="vertical">
+                        <DatePicker
+                          style={{
+                            paddingTop: 0,
+                            paddingRight: 11,
+                            paddingLeft: 0,
+                            paddingBottom: 4,
+                            background: 0,
+                            border: 0,
+                          }}
+                          name='checkOut'
+                          onChange={handleChangeDateOut}
+                          format="DD-MM-YYYY"
+                        />
+                      </Space> */}
                     </div>
                   </div>
                   <label>Khách</label>
@@ -239,9 +268,11 @@ export default function ChiTietPhong(props) {
                             aria-controls="collapseOne"
                           >
                             <p className="">
-                              {adults >= 0 && childs >= 0
+                              {adults >= 0 &&
+                              childs >= 0 &&
+                              adults + childs <= chiTietPhong.guests
                                 ? `${adults + childs} khách, ${infants} em bé`
-                                : 0}
+                                : "Quá số khách qui định"}
                             </p>
                             <p>
                               <i
