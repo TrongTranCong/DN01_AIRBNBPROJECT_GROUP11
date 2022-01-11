@@ -3,14 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getDetailRoomsAction } from "../../redux/actions/DanhSachPhongActions";
 import Header from "../../templates/HomeTemplate/Layout/Header/Header";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 
 //thư viện antdesign
-import { Avatar } from "antd";
-import { DatePicker, Space } from "antd";
-import moment from "moment";
-import { Rate, Card, Menu, Dropdown } from "antd";
-import { useFormik } from "formik";
+// import moment from "moment";
+import { Rate, Card,} from "antd";
+// import { useFormik } from "formik";
 
 export default function ChiTietPhong(props) {
   const { chiTietPhong } = useSelector((state) => state.DanhSachPhongReducer);
