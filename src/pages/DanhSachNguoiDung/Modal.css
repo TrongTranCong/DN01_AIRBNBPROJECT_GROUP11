@@ -26,7 +26,8 @@
 /* End body rules */
 
 /* Start form  attributes */
-form {
+/* form */
+#form-update1 {
   /* width: 450px; */
   /*min-height: 500px;*/
   height: auto;
