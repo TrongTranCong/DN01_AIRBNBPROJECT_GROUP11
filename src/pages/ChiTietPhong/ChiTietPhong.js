@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getDetailRoomsAction } from "../../redux/actions/DanhSachPhongActions";
 import Header from "../../templates/HomeTemplate/Layout/Header/Header";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 //thư viện antdesign
 // import moment from "moment";
-import { Rate, Card,} from "antd";
+import { Rate, Card } from "antd";
 // import { useFormik } from "formik";
 
 export default function ChiTietPhong(props) {
@@ -35,7 +35,7 @@ export default function ChiTietPhong(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  
+
   let checkIn = checkRoom.checkIn;
   let checkRoomIn = `Ngày ${new Date(checkRoom.checkIn).getDate()}`;
   console.log(`checkRoomIn`, checkRoomIn);

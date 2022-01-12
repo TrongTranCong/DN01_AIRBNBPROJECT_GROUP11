@@ -65,8 +65,7 @@ header .login {
   background-color: #fff;
 }
 
-
-form{
+form {
   position: relative;
 }
 
@@ -76,10 +75,10 @@ form input {
   box-sizing: border-box;
 }
 
-form input:placeholder-shown + button{
-opacity: 0;
-pointer-events: none;
-} 
+form input:placeholder-shown + button {
+  opacity: 0;
+  pointer-events: none;
+}
 
 form .clearInput {
   position: absolute;
@@ -98,8 +97,8 @@ form .clearInput {
   padding: 0;
   outline: none;
   cursor: pointer;
-  transition: .1s;
-} 
+  transition: 0.1s;
+}
 
 .btn_DSP {
   width: 50px;
@@ -142,6 +141,6 @@ form .clearInput {
   background-color: #ddd;
   padding: 15px 0;
 }
-.form-control{
+.form-control {
   background-color: transparent;
 }

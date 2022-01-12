@@ -47,7 +47,11 @@ function App() {
         />
         <PrivateRoute exact path="/getlistuser" component={DanhSachNguoiDung} />
         <PrivateRoute exact path="/thongtinphong" component={ThongTinPhong} />
-        <PrivateRoute exact path="/thongtinphong/themphong" component={ThemPhong} />
+        <PrivateRoute
+          exact
+          path="/thongtinphong/themphong"
+          component={ThemPhong}
+        />
         <PrivateRoute
           exact
           path="/thongtinphong/updateroom/:id"
