@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import { getLocationAction } from "../../../../redux/actions/QuanLyViTriActions";
 import { isAuthenticated, signout } from "../../../../auth";
 import { history } from "../../../../App";
+import "./Header.css";
 //antd
 import { DatePicker, Space } from "antd";
 import moment from "moment";
 import { useFormik } from "formik";
 export default function Header(props) {
   const { arrLocations } = useSelector((state) => state.QuanLyViTriReducer);
-  // console.log(`arrLocations`, arrLocations)
+  console.log(`arrLocations`, arrLocations);
   //lấy thông tin users
   const formik = useFormik({
     initialValues: {
@@ -22,7 +23,7 @@ export default function Header(props) {
     },
     onSubmit: (values) => {
       console.log(`values`, values);
-    }
+    },
   });
 
   const handleClickSearch = () => {
@@ -81,23 +82,6 @@ export default function Header(props) {
   const history = useHistory();
 
   //   // history.push(`/danhsachphong?location=${location}`);
-  // };
-  //Sticky menu
-  // useEffect(() => {
-  //   window.addEventListener("scroll", isSticky);
-  //   return () => {
-  //     window.removeEventListener("scroll", isSticky);
-  //   };
-  // });
-
-  //Method that will fix header after a specific scrollable
-  // const isSticky = () => {
-  //   const nav = document.querySelector("nav");
-  //   const scrollTop = window.scrollY;
-  //   scrollTop >= 100
-  // ? nav.classList.add("is-sticky")
-  //     : nav.classList.remove("is-sticky");
-  // };
 
   //Scrolling
   const [scroll, setScroll] = useState(true);
@@ -108,7 +92,7 @@ export default function Header(props) {
     };
   });
   const handleOnScroll = (e) => {
-    // let searchMain = document.querySelector("form");
+    // let search = document.querySelector("form");
     let navbar = document.querySelector("nav");
     let winScroll = window.scrollY;
 
@@ -120,18 +104,18 @@ export default function Header(props) {
   };
 
   return (
-    <header className="px-0">
+    <header className="px-0" id="header">
       {scroll && (
         <nav
           className="navbar navbar-expand-lg navbar-dark"
           style={{ padding: "0 5rem" }}
         >
           <a className="navbar-brand" href="/">
-            <div className="row mx-0 align-items-center">
+            <div className="d-flex mx-0 align-items-center">
               <div>
                 <i className="fab fa-airbnb" style={{ fontSize: "1.8rem" }}></i>
               </div>
-              <div className="pl-1 font-weight-bold">airbnb</div>
+              <div className="font-weight-bold">airbnb</div>
             </div>
           </a>
           <button
@@ -145,7 +129,6 @@ export default function Header(props) {
           >
             <span className="navbar-toggler-icon" />
           </button>
-
           <div
             className="collapse navbar-collapse justify-content-center"
             id="navbarNav"
@@ -166,7 +149,6 @@ export default function Header(props) {
                   Trải nghiệm trực tuyến
                 </a>
               </li>
-
               <li>
                 <div className=" dropdown active  ">
                   <a
@@ -231,27 +213,34 @@ export default function Header(props) {
               </li>
             </ul>
           </div>
-
-          <div className="guests d-flex align-items-center">
-            {/* <div className="mx-3">
-              <div
-                href="#"
-                style={{
-                  borderRadius: "1.25rem",
-                  cursor: "pointer",
-                  color: "#fff",
-                }}
-              >
-                <i class="fa fa-globe"></i>
-              </div>
-            </div> */}
-          </div>
+          {/* <div
+            className="collapse navbar-collapse justify-content-center"
+            id="navbarNav"
+          >
+            <ul className="navbar-nav text-danger">
+              <li className="nav-item active">
+                <a className="nav-link" href="#">
+                  Nơi ở <span className="sr-only">(current)</span>
+                </a>
+              </li>
+              <li className="nav-item ">
+                <a className="nav-link" href="#">
+                  Trải nghiệm
+                </a>
+              </li>
+              <li className="nav-item ">
+                <a className="nav-link" href="#">
+                  Trải nghiệm trực tuyến
+                </a>
+              </li>
+            </ul>
+          </div> */}
         </nav>
       )}
 
-      <div className="mt-2">
-        <form className="search-blog my-0 p-0" onSubmit={formik.handleSubmit}>
-          <div className="d-flex mx-0 font-weight-bold">
+      <div className="container mt-2">
+        <form className="searchForm my-0 p-0" onSubmit={formik.handleSubmit}>
+          <div className="flex-container d-flex mx-0 font-weight-bold">
             <div className="col-3">
               <label className="mt-2" style={{ marginLeft: "15px" }}>
                 Địa điểm
@@ -261,7 +250,7 @@ export default function Header(props) {
                 type="search"
                 className="form-control border-0 p-0"
                 style={{
-                  width: "80%",
+                  // width: "80%",
                   marginTop: -7,
                   marginLeft: 15,
                   fontSize: 14,
@@ -307,122 +296,93 @@ export default function Header(props) {
               </div>
             </div>
 
-            <div className="col-3 ">
-              <label className="mt-2 ">Nhận phòng</label>
-              {/* <input
-                type="date"
-                name="checkIn"
-                className="form-control border-0 p-0"
-                style={{
-                  width: "70%",
-                  marginTop: "-15px",
-                }}
-                id="CheckIn"
-                onChange={handleChangeSearch}
-                // value={checkIn}
-              /> */}
-              <Space direction="vertical">
-                <DatePicker
-                  style={{
-                    paddingTop: 0,
-                    paddingRight: 11,
-                    paddingLeft: 0,
-                    paddingBottom: 4,
-                    background: 0,
-                    border: 0,
-                  }}
-                  name="checkIn"
-                  onChange={handleChangeDateIn}
-                  format="DD-MM-YYYY"
-                />
-              </Space>
-            </div>
-            <div className="col-3 ">
-              <label className="mt-2 ">Trả phòng</label>
-              {/* <input
-                type="date"
-                name="checkOut"
-                id="CheckOut"
-                className="form-control border-0 p-0 h-0 "
-                style={{ width: "70%", marginTop: "-15px" }}
-                onChange={handleChangeSearch}
-                // value={checkOut}
-              /> */}
-              <Space direction="vertical">
-                <DatePicker
-                  style={{
-                    paddingTop: 0,
-                    paddingRight: 11,
-                    paddingLeft: 0,
-                    paddingBottom: 4,
-                    background: 0,
-                    border: 0,
-                  }}
-                  onChange={handleChangeDateOut}
-                  format="DD-MM-YYYY"
-                />
-              </Space>
-            </div>
-            <div className="col-3 ">
-              <div className="row">
-                <div className="col-8">
-                  <label className="mt-2">Khách</label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    className="form-control border-0 p-0 h-0"
-                    style={{ width: "100%", marginTop: -7, fontSize: 14 }}
-                    name="guests"
-                    placeholder="Thêm khách"
-                    onChange={formik.handleChange}
-                    // value={guests}
-                  />
-                  <button className="clearInput" type="reset">
-                    &times;
-                  </button>
-                  {/* <Space>
-                    <InputNumber 
-                      style={{}}
-                      min={1}
-                      max={10}
-                      value={guests}
-                      onChange={setGuests}
-                    />
-                    <Button
-                      
-                      type="primary"
-                      onClick={() => {
-                        setGuests(2);
+            <div className="col-5 d-flex">
+              <div className="col-6">
+                <label className="mt-2 ">Nhận phòng</label>
+                <div>
+                  <Space direction="vertical">
+                    <DatePicker
+                      style={{
+                        paddingTop: 0,
+                        paddingRight: 11,
+                        paddingLeft: 0,
+                        paddingBottom: 4,
+                        background: 0,
+                        border: 0,
                       }}
-                    >
-                      &times;
-                    </Button>
-                  </Space> */}
+                      name="checkIn"
+                      onChange={handleChangeDateIn}
+                      format="DD-MM-YYYY"
+                    />
+                  </Space>
                 </div>
-                <div className="col-4">
-                  <button
-                    type="submit"
-                    className="btn-danger"
-                    onClick={handleClickSearch}
+              </div>
+              <div className="col-6 ">
+                <label className="mt-2 ">Trả phòng</label>
+                <div>
+                  <Space direction="vertical">
+                    <DatePicker
+                      style={{
+                        paddingTop: 0,
+                        paddingRight: 11,
+                        paddingLeft: 0,
+                        paddingBottom: 4,
+                        background: 0,
+                        border: 0,
+                      }}
+                      onChange={handleChangeDateOut}
+                      format="DD-MM-YYYY"
+                    />
+                  </Space>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-4 d-flex ">
+              <div className="col-8">
+                <label className="mt-2">Khách</label>
+                <input
+                  type="text"
+                  autoComplete="off"
+                  className="form-control border-0 p-0 h-0"
+                  style={{
+                    width: "100%",
+                    marginTop: -7,
+                    fontSize: 14,
+                    background: "transparent",
+                  }}
+                  name="guests"
+                  placeholder="Thêm khách"
+                  onChange={formik.handleChange}
+                  // value={guests}
+                />
+                <button className="clearInput" type="reset">
+                  &times;
+                </button>
+              </div>
+              <div className="col-4">
+                <button
+                  type="submit"
+                  className="btn-danger"
+                  onClick={handleClickSearch}
+                  style={{
+                    width: 50,
+                    height: 50,
+                    marginTop: 7,
+                    borderRadius: 50,
+                  }}
+                >
+                  <div
                     style={{
-                      width: 50,
-                      height: 50,
-                      marginTop: 7,
-                      borderRadius: 50,
+                      paddingLeft: 3,
+                      paddingTop: 3,
+                      fontSize: 16,
+                      color: "#fff",
                     }}
                   >
-                    <div
-                      style={{
-                        paddingLeft: 3,
-                        paddingTop: 3,
-                        fontSize: 16,
-                        color: "#fff",
-                      }}
-                    >
-                      <i className="fa fa-search"></i>
-                    </div>
-                  </button>
-                </div>
+                    <i className="fa fa-search"></i>
+                  </div>
+                </button>
               </div>
             </div>
           </div>

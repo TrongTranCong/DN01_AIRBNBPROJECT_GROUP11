@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useLocation, useHistory } from "react-router-dom";
 import { getRoomsAction } from "../../redux/actions/DanhSachPhongActions";
 import { useFormik } from "formik";
-
+import "./DanhSachPhong.css";
 //thư viện antdesign
 import { HeartOutlined } from "@ant-design/icons";
 import { Pagination } from "antd";
