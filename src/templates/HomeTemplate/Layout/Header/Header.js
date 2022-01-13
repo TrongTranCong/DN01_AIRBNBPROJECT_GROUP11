@@ -262,38 +262,7 @@ export default function Header(props) {
                 value={location}
               />
 
-              <div
-                className="mt-3"
-                style={{
-                  marginLeft: "-18px",
-                }}
-              >
-                {suggestions &&
-                  suggestions.map((item, index) => {
-                    return (
-                      <>
-                        <li
-                          className="list-group-item font-weight-lighter border-0 suggestion"
-                          style={{
-                            width: "300px",
-                            fontSize: "18px",
-                          }}
-                          key={index}
-                          onClick={() => {
-                            handleSuggest(item.province);
-                          }}
-                        >
-                          <span className="px-2">
-                            <i className="fa fa-map-marker-alt"></i>
-                          </span>
-                          <span className="suggestion-highlighted">
-                            {item.province},{item.country}
-                          </span>
-                        </li>
-                      </>
-                    );
-                  })}
-              </div>
+
             </div>
 
             <div className="col-5 d-flex">
@@ -338,8 +307,8 @@ export default function Header(props) {
               </div>
             </div>
 
-            <div className="col-4 d-flex ">
-              <div className="col-8">
+            <div className="col-4 d-flex align-item-center  ">
+              <div className="col-7">
                 <label className="mt-2">Khách</label>
                 <input
                   type="text"
@@ -354,21 +323,21 @@ export default function Header(props) {
                   name="guests"
                   placeholder="Thêm khách"
                   onChange={formik.handleChange}
-                  // value={guests}
                 />
                 <button className="clearInput" type="reset">
                   &times;
                 </button>
               </div>
-              <div className="col-4">
+              <div className="col-5">
                 <button
                   type="submit"
                   className="btn-danger"
                   onClick={handleClickSearch}
                   style={{
-                    width: 50,
+                    width: 80,
                     height: 50,
                     marginTop: 7,
+                    marginLeft:-16,
                     borderRadius: 50,
                   }}
                 >
@@ -387,6 +356,38 @@ export default function Header(props) {
             </div>
           </div>
         </form>
+        <div
+                className="mt-1"
+                style={{
+                  marginLeft: 206,
+                }}
+              >
+                {suggestions &&
+                  suggestions.map((item, index) => {
+                    return (
+                      <>
+                        <li
+                          className="list-group-item font-weight-lighter border-0 suggestion"
+                          style={{
+                            width: "300px",
+                            fontSize: "18px",
+                          }}
+                          key={index}
+                          onClick={() => {
+                            handleSuggest(item.province);
+                          }}
+                        >
+                          <span className="px-2">
+                            <i className="fa fa-map-marker-alt"></i>
+                          </span>
+                          <span className="suggestion-highlighted">
+                            {item.province},{item.country}
+                          </span>
+                        </li>
+                      </>
+                    );
+                  })}
+              </div>
       </div>
     </header>
   );

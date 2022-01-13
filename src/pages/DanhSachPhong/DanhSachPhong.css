@@ -18,3 +18,16 @@
   background-color: #ff385c;
   cursor: pointer;
 }
+.price-BnB {
+  margin-left: 48px;
+  font-size: 18px;
+}
+/* @media screen and (max-width: 768px) {
+  .flex-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .price-BnB {
+    margin-left: 0;
+  }
+} */

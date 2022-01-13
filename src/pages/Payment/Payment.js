@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 export default function Payment(props) {
   const state = useLocation().state;
   console.log(`state`, state);
-  const [checkRoomDays, guests, baby, days, money,{chiTietPhong}] = state;
+  const [checkRoomDays, guests, baby, days, money, { chiTietPhong }] = state;
   return (
     <div>
       <div className="border-bottom">
@@ -34,15 +34,17 @@ export default function Payment(props) {
           Xác nhận và thanh toán
         </span>
         <h4 className="my-3">Chuyến đi của bạn</h4>
-        <div className="d-flex">
-          <div className="col-7">
+        <div className="row">
+          <div className="col-lg-7">
             <div className="d-flex px-0 py-2">
               <div className="col-6 p-0">
                 <h5>Ngày</h5>
                 <p>{checkRoomDays}</p>
               </div>
               <div className="col-6 p-0">
-                <h5 className=" btn-link" style={{cursor:'pointer'}}>Chỉnh sửa</h5>
+                <h5 className=" btn-link" style={{ cursor: "pointer" }}>
+                  Chỉnh sửa
+                </h5>
               </div>
             </div>
             <div className="d-flex px-0 py-2">
@@ -53,12 +55,13 @@ export default function Payment(props) {
                 </p>
               </div>
               <div className="col-6 p-0">
-                <h5 className=" btn-link" style={{cursor:'pointer'}}>Chỉnh sửa</h5>
+                <h5 className=" btn-link" style={{ cursor: "pointer" }}>
+                  Chỉnh sửa
+                </h5>
               </div>
             </div>
           </div>
-
-          <div className="col-5">
+          <div className="col-lg-5">
             <div className="card p-3">
               <div className="d-flex border-bottom pb-3">
                 <img

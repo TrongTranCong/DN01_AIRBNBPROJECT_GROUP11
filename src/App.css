@@ -19,13 +19,17 @@ header {
   z-index: 10;
   background: rgba(0, 0, 0, 0.5);
 }
-.searchForm {
+/* .searchForm {
   border: 1px solid rgb(221, 221, 221);
   height: 65px;
   width: auto;
-  /* margin-left: 220px; */
   background-color: #fff;
+<<<<<<< HEAD
 }
+=======
+  
+} */
+>>>>>>> ae05cfd399624a2d33525a4aa3a66ad05daa82ee
 /* .is-sticky {
   top: 0;
   left: 0;

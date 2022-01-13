@@ -11,12 +11,15 @@ import "./ChiTietPhong.css";
 import { Rate, Card } from "antd";
 // import { useFormik } from "formik";
 
+//thư viện antdesign
+// import { Rate, Card } from "antd";
+
 export default function ChiTietPhong(props) {
   const { chiTietPhong } = useSelector((state) => state.DanhSachPhongReducer);
   // console.log(`chiTietPhong`, chiTietPhong);
   const [checkRoom, setCheckRoom] = useState({
-    checkIn: "",
-    checkOut: "",
+    checkIn: new Date().getDate(),
+    checkOut: new Date().getDate(),
   });
 
   const dispatch = useDispatch();
@@ -39,17 +42,17 @@ export default function ChiTietPhong(props) {
 
   let checkIn = checkRoom.checkIn;
   let checkRoomIn = `Ngày ${new Date(checkRoom.checkIn).getDate()}`;
-  console.log(`checkRoomIn`, checkRoomIn);
+  // console.log(`checkRoomIn`, checkRoomIn);
   let checkOut = checkRoom.checkOut;
   let checkRoomOut = `Ngày ${new Date(checkRoom.checkOut).getDate()}`;
-  console.log(`checkRoomOut`, checkRoomOut);
+  // console.log(`checkRoomOut`, checkRoomOut);
   let checkRoomDays = `${checkRoomIn} - ${checkRoomOut}`;
   let days =
     (new Date(checkOut).getTime() - new Date(checkIn).getTime()) /
     (1000 * 3600 * 24);
-  console.log(`days`, days);
+  // console.log(`days`, days);
   let money = `${chiTietPhong?.price}` * days;
-  console.log(`money`, money);
+  // console.log(`money`, money);
 
   const [adults, setAdults] = useState(2);
   const [childs, setChilds] = useState(0);
@@ -73,7 +76,7 @@ export default function ChiTietPhong(props) {
   return (
     <Fragment>
       <Header />
-      <div className="container" style={{ paddingTop: 170 }}>
+      <div className="container" style={{ paddingTop: 190 }}>
         <h3 className="border-top" style={{ textTransform: "uppercase" }}>
           {chiTietPhong?.name}
         </h3>
@@ -213,21 +216,6 @@ export default function ChiTietPhong(props) {
                         value={checkIn}
                         onChange={handleChange}
                       />
-                      {/* <Space direction="vertical">
-                        <DatePicker
-                          style={{
-                            paddingTop: 0,
-                            paddingRight: 11,
-                            paddingLeft: 0,
-                            paddingBottom: 4,
-                            background: 0,
-                            border: 0,
-                          }}
-                          name="checkIn"
-                          onChange={handleChangeDateIn}
-                          format="DD-MM-YYYY"
-                        />
-                      </Space> */}
                     </div>
                     <div className="form-group col-md-6">
                       <label htmlFor="inputTraPhong">Trả phòng</label>
@@ -240,21 +228,6 @@ export default function ChiTietPhong(props) {
                         value={checkOut}
                         onChange={handleChange}
                       />
-                      {/* <Space direction="vertical">
-                        <DatePicker
-                          style={{
-                            paddingTop: 0,
-                            paddingRight: 11,
-                            paddingLeft: 0,
-                            paddingBottom: 4,
-                            background: 0,
-                            border: 0,
-                          }}
-                          name='checkOut'
-                          onChange={handleChangeDateOut}
-                          format="DD-MM-YYYY"
-                        />
-                      </Space> */}
                     </div>
                   </div>
                   <label>Khách</label>
