@@ -7,7 +7,6 @@ import { useFormik } from "formik";
 import "./DanhSachPhong.css";
 //thư viện antdesign
 import { HeartOutlined } from "@ant-design/icons";
-import { Pagination } from "antd";
 export default function DanhSachPhong(props) {
   const { arrDanhSachPhong } = useSelector(
     (state) => state.DanhSachPhongReducer
@@ -38,7 +37,7 @@ export default function DanhSachPhong(props) {
       .map((room, index) => {
         return (
           <>
-            <div className="col-md-6 py-3 border-bottom" key={index}>
+            <div className="col-lg-8 py-3 border-bottom" key={index}>
               <NavLink to={`/chitietphong/${room._id}`}>
                 <img
                   className="w-100"
@@ -48,8 +47,8 @@ export default function DanhSachPhong(props) {
                 />
               </NavLink>
             </div>
-            <div className="row col-md-6 border-bottom">
-              <div className="col-9 mt-2">
+            <div className="col-lg-4 border-bottom">
+              <div className="mt-2">
                 <div className="card-body" style={{ padding: "0.25rem 1rem" }}>
                   <h5 className="card-title">
                     <NavLink to={`/chitietphong/${room._id}`}>
@@ -67,22 +66,18 @@ export default function DanhSachPhong(props) {
                   </NavLink>
 
                   <p
-                    className="card-text font-weight-bold"
-                    style={{
-                      marginLeft: "48px",
-                      marginTop: "100px",
-                      fontSize: "18px",
-                    }}
+                    className="price-BnB card-text font-weight-bold"
+                    style={{}}
                   >
                     {room.price.toLocaleString()}VNĐ/đêm
                   </p>
                 </div>
               </div>
-              <div className="col-3 mt-2">
+              {/* <div className="col-3 mt-2">
                 <HeartOutlined
                   style={{ cursor: "pointer", fontSize: "20px" }}
                 />
-              </div>
+              </div> */}
             </div>
           </>
         );
@@ -90,8 +85,81 @@ export default function DanhSachPhong(props) {
   };
   return (
     <div>
-      <div className="header_DSP mb-3">
-        <div className="row justify-content-center px-5 py-3">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <a className="navbar-brand" href="/">
+          <div className="d-flex">
+            <div className="">
+              <i
+                className="fab fa-airbnb"
+                style={{
+                  fontSize: "2.5rem",
+                  color: "rgb(255, 56, 92)",
+                }}
+              ></i>
+            </div>
+            <h3 style={{ color: "rgb(255, 56, 92)" }}>airBnb</h3>
+          </div>
+
+          
+        </a>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          {/* <ul className="navbar-nav mr-auto">
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Tìm kiếm
+              </a>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a className="dropdown-item" href="#">
+                  Action
+                </a>
+                <a className="dropdown-item" href="#">
+                  Another action
+                </a>
+                <div className="dropdown-divider" />
+                <a className="dropdown-item" href="#">
+                  Something else here
+                </a>
+              </div>
+            </li>
+          </ul> */}
+          <form className="form-inline my-2 my-lg-0">
+            <input
+              className="form-control mr-sm-2"
+              type="search"
+              placeholder="Tìm kiếm"
+              aria-label="Search"
+            />
+            <button
+              className="btn btn-outline-success my-2 my-sm-0"
+              type="submit"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+      </nav>
+
+      {/* <div className="header_DSP mb-3">
+        <nav className="d-flex justify-content-center px-5 py-3">
           <div className="col-2">
             <a className="navbar-brand" href="/">
               <div className="row mx-0 align-items-center">
@@ -116,7 +184,7 @@ export default function DanhSachPhong(props) {
               </div>
             </a>
           </div>
-          <div className=" nav_DSP col-8">
+          <div className=" nav_DSP col-10">
             <div
               className="d-flex text-center"
               style={{
@@ -171,27 +239,21 @@ export default function DanhSachPhong(props) {
               </div>
             </div>
           </div>
-          <div className="d-flex align-items-center justify-content-around col-2">
-            <div>
-              <i className="fa fa-bars mx-3"></i>
-              <i className="fa fa-user-circle"></i>
+        </nav>
+      </div> */}
+      <div className="container my-3">
+        <h5 style={{ fontWeight: "lighter", marginLeft: "15px" }}>
+          Có {count} chỗ bạn chọn tại {location}
+        </h5>
+        <h3 className="mx-3">Chỗ ở khu vực bạn đã chọn</h3>
+        <div className="container">
+          <div className="card mb-3 border-0">
+            <div className="flex-container row no-gutters">
+              {renderDanhSachPhong()}
             </div>
           </div>
         </div>
-      </div>
-      <div className="row my-3">
-        <div className="col-7">
-          <h5 style={{ fontWeight: "lighter", marginLeft: "15px" }}>
-            Có {count} chỗ bạn chọn tại {location}
-          </h5>
-          <h3 className="mx-3">Chỗ ở khu vực bạn đã chọn</h3>
-          <div className="container">
-            <div className="card mb-3 border-0">
-              <div className="row no-gutters">{renderDanhSachPhong()}</div>
-            </div>
-          </div>
-        </div>
-        <div className="col-5">googlemap</div>
+        {/* <div className="col-lg-5">googlemap</div> */}
       </div>
     </div>
   );
