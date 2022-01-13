@@ -5,7 +5,7 @@ export default function Content(props) {
     <div className="content_bnb mb-3">
       <h3>Khám phá những điểm đến gần đây</h3>
       <div className="row">
-        <div className="col-3">
+        <div className="col-lg-3">
           <div className=" mb-3 ">
             <div className="row no-gutters">
               <div className="col-md-5 ">
@@ -24,7 +24,7 @@ export default function Content(props) {
             </div>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-lg-3">
           <div className=" mb-3 ">
             <div className="row no-gutters">
               <div className="col-md-5 ">
@@ -43,7 +43,7 @@ export default function Content(props) {
             </div>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-lg-3">
           <div className=" mb-3 ">
             <div className="row no-gutters">
               <div className="col-md-5 ">
@@ -62,7 +62,7 @@ export default function Content(props) {
             </div>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-lg-3">
           <div className=" mb-3 ">
             <div className="row no-gutters">
               <div className="col-md-5 ">
@@ -81,7 +81,7 @@ export default function Content(props) {
             </div>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-lg-3">
           <div className=" mb-3 ">
             <div className="row no-gutters">
               <div className="col-md-5 ">
@@ -100,7 +100,7 @@ export default function Content(props) {
             </div>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-lg-3">
           <div className=" mb-3 ">
             <div className="row no-gutters">
               <div className="col-md-5 ">
@@ -119,7 +119,7 @@ export default function Content(props) {
             </div>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-lg-3">
           <div className=" mb-3 ">
             <div className="row no-gutters">
               <div className="col-md-5 ">
@@ -138,7 +138,7 @@ export default function Content(props) {
             </div>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-lg-3">
           <div className=" mb-3 ">
             <div className="row no-gutters">
               <div className="col-md-5 ">
@@ -160,7 +160,7 @@ export default function Content(props) {
       </div>
       <h3>Ở bất cứ đâu</h3>
       <div className="row">
-        <div className="col-3">
+        <div className="col-lg-3">
           <div>
             <img
               src="https://cdn.trendir.com/wp-content/uploads/old/house-design/assets_c/2014/01/wood-and-glass-mountain-house-with-trio-of-terraces-4-thumb-630x630-30133.jpg"
@@ -170,7 +170,7 @@ export default function Content(props) {
             <h5 className="card-title text-left">Toàn bộ nhà</h5>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-lg-3">
           <div>
             <img
               src="https://sc04.alicdn.com/kf/Hb7b0b972c8394213881b5ed497764f11J.jpg"
@@ -180,7 +180,7 @@ export default function Content(props) {
             <h5 className="card-title text-left">Chỗ ở độc đáo</h5>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-lg-3">
           <div>
             <img
               src="https://www.tonlejourneys.com/wp-content/uploads/2019/07/YL1D2829-Edit-630x630.jpg"
@@ -190,7 +190,7 @@ export default function Content(props) {
             <h5 className="card-title text-left">Trang trại và thiên nhiên</h5>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-lg-3">
           <div>
             <img
               className="img-fluid"

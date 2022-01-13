@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { getDetailRoomsAction } from "../../redux/actions/DanhSachPhongActions";
 import Header from "../../templates/HomeTemplate/Layout/Header/Header";
 import { useHistory } from "react-router-dom";
+import "./ChiTietPhong.css";
 
 //thư viện antdesign
 // import moment from "moment";
@@ -80,29 +81,33 @@ export default function ChiTietPhong(props) {
         <p style={{ display: "inline-block" }}> 4,83 (18 đánh giá)</p>
 
         <div className="row">
-          <div className="col-6">
+          <div className="col-lg-6">
             <img
-              className="img-fluid"
+              className="img-fluid img-detail"
               src={chiTietPhong?.locationId?.image}
               alt=""
               style={{ borderTopLeftRadius: 15, borderBottomLeftRadius: 15 }}
             />
           </div>
 
-          <div className="col-3">
-            <img className="img-fluid" src={chiTietPhong?.image} alt="" />
+          <div className="col-lg-3 img-detail-center">
+            <img
+              className="img-fluid img-detail"
+              src={chiTietPhong?.image}
+              alt=""
+            />
           </div>
-          <div className="col-3">
+          <div className="col-lg-3">
             <img
               style={{ borderTopRightRadius: 15, borderBottomRightRadius: 15 }}
-              className="img-fluid"
+              className="img-fluid img-detail"
               src="https://picsum.photos/300/200?id"
               alt=""
             />
           </div>
         </div>
-        <div className="row">
-          <div className="col-8">
+        <div className="row mb-3">
+          <div className="col-lg-7">
             <Card
               title={
                 <div>
@@ -135,7 +140,7 @@ export default function ChiTietPhong(props) {
               </p>
               <h4 className="border-top py-3">Tiện nghi</h4>
               <div className="row">
-                <div className="col-6">
+                <div className="col-lg-6">
                   <p>
                     {chiTietPhong.wifi ? (
                       <i class="fa fa-person-booth"> Elevator</i>
@@ -187,14 +192,15 @@ export default function ChiTietPhong(props) {
               </div>
             </Card>
           </div>
-          <div className="col-4 mt-4">
+          <div className="col-lg-5 mt-5">
             <div className="card">
               <div className="card-body">
                 <p style={{ fontWeight: "bolder" }}>
                   {chiTietPhong?.price?.toLocaleString()} VNĐ/đêm
                 </p>
 
-                <form style={{ width: 300 }} onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="w-100">
+                  {/* style={{ width: 300 }} */}
                   <div className="form-row">
                     <div className="form-group col-md-6">
                       <label htmlFor="inputNhanPhong">Nhận phòng</label>
@@ -385,9 +391,10 @@ export default function ChiTietPhong(props) {
                   </div>
                   <button
                     type="submit"
-                    className="btn btn-danger"
+                    className="btn btn-danger w-100"
                     style={{
-                      width: 285,
+                      // width: 285,
+                      // width:100 %,
                       height: 35,
                       marginTop: 15,
                     }}

@@ -17,7 +17,14 @@ header {
   position: fixed;
   width: 100%;
   z-index: 10;
-  background: rgba(0, 0, 0, 0.663);
+  background: rgba(0, 0, 0, 0.5);
+}
+.searchForm {
+  border: 1px solid rgb(221, 221, 221);
+  height: 65px;
+  width: auto;
+  /* margin-left: 220px; */
+  background-color: #fff;
 }
 /* .is-sticky {
   top: 0;
@@ -109,6 +116,7 @@ form .clearInput {
   background-color: #ff385c;
   cursor: pointer;
 }
+
 .footer {
   padding: 0 80px;
   background: #f3f1f1;
@@ -122,17 +130,6 @@ form .clearInput {
   padding: 0 80px;
 }
 
-.header_DSP {
-  border-bottom: 1px solid rgb(221, 221, 221);
-  height: 100px;
-  background-color: rgba(255, 255, 255, 0.459);
-}
-.nav_DSP {
-  border: 1px solid rgb(221, 221, 221);
-  box-shadow: 0 3px 6px 0 rgba(117, 116, 116, 0.589);
-  background: #fff;
-  border-radius: 50px;
-}
 .suggestion {
   cursor: pointer;
   padding: 15px 20px;
