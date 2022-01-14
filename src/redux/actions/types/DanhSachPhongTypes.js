@@ -1,1 +1,1 @@
-export const GET_ROOMS_LIST = "GET_ROOMS_LIST";
+export const DANH_SACH_PHONG = "DANH_SACH_PHONG";
