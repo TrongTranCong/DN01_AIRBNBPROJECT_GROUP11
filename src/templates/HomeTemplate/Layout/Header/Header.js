@@ -4,7 +4,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getLocationAction } from "../../../../redux/actions/QuanLyViTriActions";
 import { isAuthenticated, signout } from "../../../../auth";
-import { history } from "../../../../App";
+// import { history } from "../../../../App";
 import "./Header.css";
 //antd
 import { DatePicker, Space } from "antd";
@@ -133,7 +133,7 @@ export default function Header(props) {
             className="collapse navbar-collapse justify-content-center"
             id="navbarNav"
           >
-            <ul className="navbar-nav text-danger">
+            <ul className="navbar-nav ">
               <li className="nav-item active">
                 <a className="nav-link" href="#">
                   Nơi ở <span className="sr-only">(current)</span>
@@ -144,7 +144,7 @@ export default function Header(props) {
                   Trải nghiệm
                 </a>
               </li>
-              <li className="nav-item ">
+              <li className="nav-item mr-2 ">
                 <a className="nav-link" href="#">
                   Trải nghiệm trực tuyến
                 </a>
@@ -335,10 +335,10 @@ export default function Header(props) {
                   onClick={handleClickSearch}
                   style={{
                     width: 80,
-                    height: 50,
-                    marginTop: 7,
+                    height: 40,
+                    marginTop: 12,
                     marginLeft:-16,
-                    borderRadius: 50,
+                    borderRadius: 20,
                   }}
                 >
                   <div

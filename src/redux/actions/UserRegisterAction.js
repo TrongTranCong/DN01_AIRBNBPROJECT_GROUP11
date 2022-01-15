@@ -15,10 +15,11 @@ export const DangKyAction = (values) => {
         },
         data: values,
       });
-      console.log(result);
+
+      // console.log(result);
       // console.log(values);
     } catch (errors) {
-      console.log(errors);
+      // console.log(errors);
     }
     return dispatch;
   };

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { DOMAIN } from "../../util/setting";
+// import { isAuthenticated } from "../../auth/index";
 
 export const XoaNguoiDung = (id) => {
   return async () => {
@@ -14,7 +15,7 @@ export const XoaNguoiDung = (id) => {
           token: JSON.parse(localStorage.getItem("accessTOKEN")),
         },
       });
-      console.log(result);
+      return window.location.reload();
     } catch (errors) {
       console.log(`errors`, errors);
     }

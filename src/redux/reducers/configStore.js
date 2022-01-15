@@ -3,7 +3,7 @@ import { QuanLyViTriReducer } from "./QuanLyViTriReducer";
 import { DanhSachPhongReducer } from "./DanhSachPhongReducer";
 import { DanhSachNguoiDungReducer } from "./DanhSachNguoiDungReducer";
 import { QuanLyNguoiDungReducer } from "./QuanlyNguoiDungReducer";
-import { LayThongTinSearchReducer } from "./QuanLyViTriReducer";
+import { ChiTietThongTinNguoiDungReducer } from "./ChiTietThongTinNguoiDungReducer";
 import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   DanhSachPhongReducer,
   QuanLyNguoiDungReducer,
   DanhSachNguoiDungReducer,
-  // LayThongTinSearchReducer,
+  ChiTietThongTinNguoiDungReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

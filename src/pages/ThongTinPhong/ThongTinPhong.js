@@ -1,19 +1,15 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { history } from "../../App";
 import {
   getRoomsAction,
-  getDetailRoomsAction,
-  addRoomsAction,
+  // getDetailRoomsAction,
+  // addRoomsAction,
   deleteRoomAction,
 } from "../../redux/actions/DanhSachPhongActions";
-import ReactPaginate from "react-paginate";
-import Pagination from "../../util/Pagination/Pagination";
-import { NavLink, useHistory, useLocation } from "react-router-dom";
-import { useFormik } from "formik";
-//lib ant design
-// import { Pagination } from "antd";
+import { NavLink } from "react-router-dom";
+import "./ThongTinPhong.css";
 
 export default function ThongTinPhong(props) {
   // const location = useLocation();
@@ -30,12 +26,9 @@ export default function ThongTinPhong(props) {
   );
   // console.log(`arrDanhSachPhongDefault`, arrDanhSachPhongDefault);
 
-  
   useEffect(() => {
     dispatch(getRoomsAction());
-  },[dispatch]);
-  
-  
+  }, [dispatch]);
 
   // const history=useHistory();
   const renderDanhSachPhong = () => {
@@ -45,7 +38,7 @@ export default function ThongTinPhong(props) {
           <td className="font-weight-bold">#{index + 1}</td>
           <td>{room.name}</td>
           <td>
-            <img className="w-25" src={room.image} alt="" />
+            <img className="hinhAnhRoom" src={room.image} alt="" />
           </td>
           <td>{room.locationId.province}</td>
 
@@ -83,7 +76,7 @@ export default function ThongTinPhong(props) {
         <div className="row">
           <main role="main" className="col-lg-12 px-md-4">
             <h2>Danh Sách Thông Tin Phòng</h2>
-            {/* Button trigger modal */}
+
             <div className="row">
               <div className="col-8">
                 <NavLink
@@ -100,10 +93,8 @@ export default function ThongTinPhong(props) {
                   Thêm phòng
                 </NavLink>
               </div>
-              {/* <div className="col-4">
-                
-              </div> */}
             </div>
+            
             <div className="table-responsive roomTable">
               <table className="table table-striped table-sm">
                 <thead>
@@ -111,140 +102,15 @@ export default function ThongTinPhong(props) {
                     <th>ID</th>
                     <th>Tên phòng</th>
                     <th>Hình ảnh</th>
-                    <th>Location</th>
-                    <th>GuestMax</th>
-                    {/* <th>Tình Trạng</th> */}
-                    <th />
+                    <th>Vị trí</th>
+                    <th>Khách</th>
+                    <th>Tùy chọn</th>
                   </tr>
                 </thead>
-                <tbody id="tbodyFood">{renderDanhSachPhong()}</tbody>
+                <tbody id="tbodyRoom">{renderDanhSachPhong()}</tbody>
               </table>
             </div>
           </main>
-          <div className="container m-1">
-            {/* {renderPagination} */}
-            {/* <Pagination/> */}
-          </div>
-        </div>
-      </div>
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabIndex={-1}
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Thêm Phòng
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <form className="needs-validation" id="roomForm">
-                <div className="row">
-                  <p id="textID" />
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="maPhong">Mã phòng</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="maPhong"
-                      placeholder="Nhập mã phòng"
-                      required
-                      // onChange={handleChangeMaPhong}
-                      // value={maPhong}
-                    />
-                    <div id="invalidTen" className="invalid-form"></div>
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="tenPhong">Tên phòng</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="tenPhong"
-                      placeholder="Nhập tên phòng"
-                      required
-                    />
-                    <div id="invalidTen" className="invalid-form"></div>
-                  </div>
-
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="giaPhong">Giá phòng</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="giaPhong"
-                      placeholder="Nhập giá"
-                      defaultValue
-                      required
-                    />
-                    <div id="invalidGia" className="invalid-feedback"></div>
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="khuyenMai">Khuyến Mãi (%)</label>
-                    <select
-                      className="custom-select d-block w-100"
-                      id="khuyenMai"
-                      required
-                    >
-                      <option value>Chọn khuyến mãi</option>
-                      <option value={10}>10</option>
-                      <option value={20}>20</option>
-                    </select>
-                    <div id="invalidKM" className="invalid-feedback"></div>
-                  </div>
-                </div>
-                <div className="mb-3">
-                  <div className="form-group">
-                    <label htmlFor="hinhPhong">Hình ảnh</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="hinhPhong"
-                      placeholder="Nhập hình ảnh"
-                      defaultValue
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="moTa">Mô Tả</label>
-                  <textarea
-                    className="form-control"
-                    id="moTa"
-                    rows={3}
-                    defaultValue={""}
-                  />
-                  <div id="invalidMoTa" className="invalid-form"></div>
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-warning" id="btnCapNhat">
-                Cập Nhật
-              </button>
-              <button type="button" className="btn btn-warning" id="btnThemMon">
-                Thêm
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
